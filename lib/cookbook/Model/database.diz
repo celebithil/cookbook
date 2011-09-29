@@ -1,0 +1,22 @@
+create table dish (
+	dish_id serial,
+	dish_name varchar (100),
+	type_id bigint unsigned not null,
+	receipt text,
+	primary key (dish_id)
+);
+
+create table type (
+	type_id serial,
+	type_name varchar (50),
+	primary key (type_id)
+);
+
+SET character_set_results='cp866';   /*устанавливает кодировку данных отправл€емых   клиента*/
+SET character_set_client='cp866';    /*устанавливает кодировку данных отправл€емых ќ“ клиенту*/
+SET character_set_connection='utf8'; /*устанавливает кодировку, в которую преобразуетс€ информаци€ пришедша€ от клиента, перед выполнением запроса на сервере.*/
+
+insert type values ('0', 'первое блюдо'), ('1','второе блюдо');
+
+
+
