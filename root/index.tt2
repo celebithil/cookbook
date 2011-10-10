@@ -1,0 +1,6 @@
+[% # This is a TT comment. -%]
+[%- # Provide a title -%]
+[% META title = 'Book List' -%]
+<hr>
+[%message-%]
+<hr>
