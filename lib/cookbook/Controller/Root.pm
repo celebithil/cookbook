@@ -1,6 +1,7 @@
 package cookbook::Controller::Root;
 use Moose;
 use namespace::autoclean;
+use utf8;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -31,7 +32,7 @@ sub index :Path :Args(0) {
 
     # Hello World
     #$c->response->body( $c->welcome_message );
-    $c->stash(message=> 'helloooooo!');
+    $c->stash(dishs => [$c->model('cookbookdb::Dish')->all], message=> 'helloooooo!');
 }
 
 =head2 default

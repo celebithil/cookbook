@@ -4,3 +4,6 @@
 <hr>
 [%message-%]
 <hr>
+[% FOREACH dish IN dishs -%]
+[% dish.dish_id %]&nbsp[% dish.dish_name %]&nbsp[%dish.receipt-%]<br>
+[% END -%]
