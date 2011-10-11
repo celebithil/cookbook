@@ -1,5 +1,5 @@
 package cookbook::Model::cookbookdb;
-
+use warnings;
 use strict;
 use base 'Catalyst::Model::DBIC::Schema';
 
@@ -11,6 +11,7 @@ __PACKAGE__->config(
         user => 'root',
         password => 'solid',
         quote_names => q{1},
+        mysql_enable_utf8 => 1
     }
 );
 

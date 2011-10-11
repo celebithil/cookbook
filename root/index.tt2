@@ -1,7 +1,12 @@
 ﻿[% # This is a TT comment. -%]
 <hr>
-[%message-%]
-<hr>
+<table>
+<tr>
+<td>#</td><td>Название</td><td>Рецепт</td>
+</tr>
 [% FOREACH dish IN dishs -%]
-[% dish.dish_id %]&nbsp[% dish.dish_name %]&nbsp[%dish.receipt-%]<br>
+<tr>
+<td>[% dish.dish_id %]</td><td>[% dish.dish_name %]</td><td>[%dish.receipt-%]</td>
 [% END -%]
+</tr>
+</table>
