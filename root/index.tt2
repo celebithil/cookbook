@@ -1,8 +1,8 @@
-﻿[% # This is a TT comment. -%]
+[% # This is a TT comment. -%]
 <hr>
 <table>
 <tr>
-<td>#</td><td>Название</td><td>Рецепт</td>
+<td><b>#</b></td><td><b>Название</b></td><td><b>Рецепт</b></td>
 </tr>
 [% FOREACH dish IN dishs -%]
 <tr>

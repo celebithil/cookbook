@@ -19,7 +19,7 @@ use Catalyst qw/
     -Debug
     ConfigLoader
     Static::Simple
-    Unicode
+    Unicode::Encoding
 /;
 
 extends 'Catalyst';

@@ -5,8 +5,8 @@ use base 'Catalyst::Model::DBIC::Schema';
 
 __PACKAGE__->config(
     schema_class => 'cookbook::Schema::cookbookdb',
-    
-    connect_info => {
+
+        connect_info => {
         dsn => 'dbi:mysql:cookbook',
         user => 'root',
         password => 'solid',
