@@ -1,3 +1,6 @@
-read this
-http://www.catalystframework.org/calendar/2006/21
-read about Catalyst::Plugin::Unicode
+think about controllers
+
+record/edit, record/view, record/new, record/delete
+or
+edit/id, view/id, new/id, delete/id
+
