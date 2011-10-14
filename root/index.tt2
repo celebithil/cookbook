@@ -1,12 +1,19 @@
-[% # This is a TT comment. -%]
+[% # This is a TT comment. %]
+<head><title>[% title %]</title></head>
+<body>
 <hr>
-<table>
+<table border>
 <tr>
-<td><b>#</b></td><td><b>Название</b></td><td><b>Рецепт</b></td>
+<td><b>#</b></td><td><b>Название</b></td>
 </tr>
-[% FOREACH dish IN dishs -%]
+[% FOREACH dish IN dishs %]
 <tr>
-<td>[% dish.dish_id %]</td><td>[% dish.dish_name %]</td><td>[%dish.receipt-%]</td>
-[% END -%]
+<td>[% dish.dish_id %]</td>
+<td>[% dish.dish_name -%]</td>
+<td><a href =/edit/[% dish.dish_id %]><img src="/static/images/edit.gif"></a>
+</td> <td><a href =/view/[% dish.dish_id %]><img src="/static/images/view.gif"></td>
+[% END %]
 </tr>
 </table>
+</body>
+

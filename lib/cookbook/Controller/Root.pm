@@ -1,6 +1,7 @@
 package cookbook::Controller::Root;
 use Moose;
 use namespace::autoclean;
+use utf8;
 
 BEGIN { extends 'Catalyst::Controller' }
 
@@ -31,7 +32,14 @@ sub index :Path :Args(0) {
 
     # Hello World
     #$c->response->body( $c->welcome_message );
-    $c->stash(dishs => [$c->model('cookbookdb::Dish')->all]);
+    #$c->stash(dishs => [$c->model('cookbookdb::Dish')->all], title => 'Главная страница');
+	$c->stash(dishs => [$c->model('cookbookdb::Dish')-> search (
+    {},
+    {
+      columns => [ qw/dish_id dish_name/ ]
+    }
+  )], title => 'Главная страница');
+	
 }
 
 =head2 default
