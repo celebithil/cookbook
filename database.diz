@@ -3,7 +3,8 @@ create table dish (
 	dish_name varchar (100),
 	type_id bigint unsigned not null,
 	receipt text,
-	primary key (dish_id)
+	primary key (dish_id),
+	foreign key (type_id) reference type
 );
 
 create table type (

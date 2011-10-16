@@ -28,7 +28,8 @@ CREATE TABLE `dish` (
   `type_id` bigint(20) unsigned NOT NULL,
   `receipt` text,
   PRIMARY KEY (`dish_id`),
-  UNIQUE KEY `dish_id` (`dish_id`)
+  UNIQUE KEY `dish_id` (`dish_id`),
+  FOREIGN KEY (`type_id`) REFERENCES type (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -38,7 +39,7 @@ CREATE TABLE `dish` (
 
 LOCK TABLES `dish` WRITE;
 /*!40000 ALTER TABLE `dish` DISABLE KEYS */;
-INSERT INTO `dish` VALUES (1,'яичница',1,'разбить и пожарить яйца'),(2,'бульон',0,'сварить мясо');
+INSERT INTO `dish` VALUES (0,'яичница',1,'разбить и пожарить яйца'),(1,'бульон',0,'сварить мясо');
 /*!40000 ALTER TABLE `dish` ENABLE KEYS */;
 UNLOCK TABLES;
 

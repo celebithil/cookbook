@@ -1,4 +1,4 @@
-package cookbook::Controller::edit;
+package cookbook::Controller::recipe;
 use Moose;
 use namespace::autoclean;
 
@@ -6,7 +6,7 @@ BEGIN {extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-cookbook::Controller::edit - Catalyst Controller
+cookbook::Controller::recipe - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -24,13 +24,13 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched cookbook::Controller::edit in edit.');
+    $c->response->body('Matched cookbook::Controller::recipe in recipe.');
 }
 
 
 =head1 AUTHOR
 
-A clever guy
+Daniil Popov
 
 =head1 LICENSE
 
