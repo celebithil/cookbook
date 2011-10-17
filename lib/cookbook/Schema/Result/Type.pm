@@ -1,4 +1,4 @@
-package cookbook::Schema::cookbookdb::Result::Type;
+package cookbook::Schema::Result::Type;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -15,7 +15,7 @@ __PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 NAME
 
-cookbook::Schema::cookbookdb::Result::Type
+cookbook::Schema::Result::Type
 
 =cut
 
@@ -51,9 +51,26 @@ __PACKAGE__->add_columns(
 );
 __PACKAGE__->set_primary_key("type_id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-29 17:45:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KO2GhfGSXliB/Rg486c9VQ
+=head2 dishes
+
+Type: has_many
+
+Related object: L<cookbook::Schema::Result::Dish>
+
+=cut
+
+__PACKAGE__->has_many(
+  "dishes",
+  "cookbook::Schema::Result::Dish",
+  { "foreign.type_id" => "self.type_id" },
+  { cascade_copy => 0, cascade_delete => 0 },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-10-18 00:03:00
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:/irZsOl1qE4uXyGVj5DZzA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

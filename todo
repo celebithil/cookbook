@@ -1,6 +1,7 @@
 think about controllers
-
 record/edit, record/view, record/new, record/delete
 or
 edit/id, view/id, new/id, delete/id
+-----
+read DBIx::Class::Manual::Joining
 

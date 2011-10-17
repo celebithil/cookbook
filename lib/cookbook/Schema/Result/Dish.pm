@@ -1,4 +1,4 @@
-package cookbook::Schema::cookbookdb::Result::Dish;
+package cookbook::Schema::Result::Dish;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -15,7 +15,7 @@ __PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 NAME
 
-cookbook::Schema::cookbookdb::Result::Dish
+cookbook::Schema::Result::Dish
 
 =cut
 
@@ -40,6 +40,7 @@ __PACKAGE__->table("dish");
 
   data_type: 'bigint'
   extra: {unsigned => 1}
+  is_foreign_key: 1
   is_nullable: 0
 
 =head2 receipt
@@ -60,15 +61,37 @@ __PACKAGE__->add_columns(
   "dish_name",
   { data_type => "varchar", is_nullable => 1, size => 100 },
   "type_id",
-  { data_type => "bigint", extra => { unsigned => 1 }, is_nullable => 0 },
+  {
+    data_type => "bigint",
+    extra => { unsigned => 1 },
+    is_foreign_key => 1,
+    is_nullable => 0,
+  },
   "receipt",
   { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("dish_id");
 
+=head1 RELATIONS
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-09-29 17:45:32
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:KIV22HS/Kk4WMliD8Gvvng
+=head2 type
+
+Type: belongs_to
+
+Related object: L<cookbook::Schema::Result::Type>
+
+=cut
+
+__PACKAGE__->belongs_to(
+  "type",
+  "cookbook::Schema::Result::Type",
+  { type_id => "type_id" },
+  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+);
+
+
+# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-10-18 00:03:00
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LlPrDrsUTJcCWzm+84KFLw
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
