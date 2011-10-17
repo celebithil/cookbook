@@ -36,7 +36,8 @@ sub index : Path : Args(0) {
     $c->stash(
         dishs => [
             $c->model('cookbookdb::Dish')
-              ->search( {}, { columns => [qw/dish_id dish_name/] }, )
+              ->search( {}, { columns => [qw/dish_id dish_name/], join => 'type', prefetch => 'type', order => 'dish_id' } )
+			  
         ],
         title => 'Главная страница'
     );

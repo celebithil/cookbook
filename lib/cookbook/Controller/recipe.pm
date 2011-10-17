@@ -27,6 +27,28 @@ sub index :Path :Args(0) {
     $c->response->body('Matched cookbook::Controller::recipe in recipe.');
 }
 
+sub view :Local {
+        my ( $self, $c, $id ) = @_;    
+        $c->response->body("view #$id");
+}
+
+sub edit :Local {
+        my ( $self, $c, $id ) = @_;    
+        $c->response->body("edit #$id");
+}
+
+
+sub add :Local {
+        my ( $self, $c) = @_;    
+        $c->response->body("add record");
+}
+
+sub del :Local {
+        my ( $self, $c, $id ) = @_;    
+        $c->response->body("delete #$id");
+}
+
+
 
 =head1 AUTHOR
 
