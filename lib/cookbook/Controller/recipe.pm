@@ -1,6 +1,7 @@
 package cookbook::Controller::recipe;
 use Moose;
 use namespace::autoclean;
+use utf8;
 
 BEGIN {extends 'Catalyst::Controller'; }
 
@@ -23,7 +24,6 @@ Catalyst Controller.
 
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
-
     $c->response->body('Matched cookbook::Controller::recipe in recipe.');
 }
 
@@ -40,7 +40,7 @@ sub edit :Local {
 
 sub add :Local {
         my ( $self, $c) = @_;    
-        $c->response->body("add record");
+        $c->stash( title =>"Добавить запись");
 }
 
 sub del :Local {

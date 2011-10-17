@@ -1,0 +1,9 @@
+[% # This is a TT comment. %]
+<head><title>[% title %]</title></head>
+<body>
+<hr>
+
+<hr>
+<a href = recipe/add><img src="/static/images/new.gif">
+</body>
+
