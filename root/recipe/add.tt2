@@ -1,9 +1,18 @@
-[% # This is a TT comment. %]
-<head><title>[% title %]</title></head>
-<body>
+[% META title = 'add record' -%]
 <hr>
-
+<form method="post" action="[% c.uri_for('insert') %]">
+      <p>Наименование блюда:<input type="text" name="dish_name">
+	  <select name = "type_id">Выберите тип блюда</option>
+	  [% FOREACH type IN type %]
+	  <option value="[% type.type_id %]">[% type.type_name %]</option>
+	  [% END %]
+	  </select></p>
+	  <p><b>Рецепт:</b></p>
+      <p><textarea name="recipe" rows="25" cols="80">
+	  </textarea></p>
+      <p><input type="submit" name="Submit" value="Ввести"></p>
+</form>
 <hr>
-<a href = recipe/add><img src="/static/images/new.gif">
 </body>
-
+    
+    

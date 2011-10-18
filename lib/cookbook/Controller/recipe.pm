@@ -40,8 +40,19 @@ sub edit :Local {
 
 sub add :Local {
         my ( $self, $c) = @_;    
+        $c->stash( 
+		type => [
+            $c->model('cookbookdb::Type')
+              ->all],
+		title =>"Добавить запись"
+		);
+}
+
+sub insert :Local {
+        my ( $self, $c) = @_;    
         $c->stash( title =>"Добавить запись");
 }
+
 
 sub del :Local {
         my ( $self, $c, $id ) = @_;    
