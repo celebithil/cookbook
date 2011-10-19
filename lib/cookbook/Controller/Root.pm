@@ -3,6 +3,7 @@ use Moose;
 use namespace::autoclean;
 use utf8;
 
+
 BEGIN { extends 'Catalyst::Controller' }
 
 #
@@ -36,9 +37,9 @@ sub index : Path : Args(0) {
     $c->stash(
         dishs => [
             $c->model('cookbookdb::Dish')
-              ->search( {}, { columns => [qw/dish_id dish_name/], join => 'type', prefetch => 'type', order => 'dish_id' } )
+              ->search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name' } )
 			  
-        ],
+        ], 
         title => 'Главная страница'
     );
 

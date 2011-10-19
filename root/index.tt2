@@ -4,11 +4,10 @@
 <hr>
 <table border>
 <tr>
-<td><b>#</b></td><td><b>Название</b></td><td><b>Вид блюда</b></td>
+<td><b>Название</b></td><td><b>Вид блюда</b></td>
 </tr>
 [% FOREACH dish IN dishs %]
 <tr>
-<td>[% dish.dish_id %]</td>
 <td>[% dish.dish_name -%]</td>
 <td>[% dish.type.type_name -%]</td>
 <td><a href = recipe/edit/[% dish.dish_id %]><img src="/static/images/edit.gif"></a>

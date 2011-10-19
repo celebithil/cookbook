@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use utf8;
 
-BEGIN {extends 'Catalyst::Controller'; }
+BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
@@ -17,49 +17,68 @@ Catalyst Controller.
 
 =cut
 
-
 =head2 index
 
 =cut
 
-sub index :Path :Args(0) {
+sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     $c->response->body('Matched cookbook::Controller::recipe in recipe.');
 }
 
-sub view :Local {
-        my ( $self, $c, $id ) = @_;    
-        $c->response->body("view #$id");
+sub view : Local {
+    my ( $self, $c, $id ) = @_;
+    $c->stash(
+        dish => [
+            $c->model('cookbookdb::Dish')->find(
+                { dish_id => $id  },
+                { columns   => [qw /dish_name receipt/] }
+            )
+        ]
+    );
 }
 
-sub edit :Local {
-        my ( $self, $c, $id ) = @_;    
-        $c->response->body("edit #$id");
+sub edit : Local {
+    my ( $self, $c, $id ) = @_;
+    $c->response->body("edit #$id");
 }
 
-
-sub add :Local {
-        my ( $self, $c) = @_;    
-        $c->stash( 
-		type => [
-            $c->model('cookbookdb::Type')
-              ->all],
-		title =>"Добавить запись"
-		);
+sub add : Local {
+    my ( $self, $c ) = @_;
+    $c->stash(
+        type  => [ $c->model('cookbookdb::Type')->all ],
+        title => "Добавить запись"
+    );
 }
 
-sub insert :Local {
-        my ( $self, $c) = @_;    
-        $c->stash( title =>"Добавить запись");
+sub insert : Local {
+    my ( $self, $c ) = @_;
+    my $dish_name = $c->request->params->{dish_name};
+    my $type_id   = $c->request->params->{type_id};
+    my $recipe    = $c->request->params->{recipe};
+    unless ( $dish_name && $recipe ) {
+        $c->stash(
+            dish_name => $dish_name,
+            recipe    => $recipe,
+            type      => [ $c->model('cookbookdb::Type')->all ]
+        );
+    }
+    else {
+        $c->model('cookbookdb::Dish')->create(
+            {
+                dish_name => $dish_name,
+                type_id   => $type_id,
+                receipt   => $recipe
+            }
+        );
+        $c->response->body('Record added');
+    }
 }
 
-
-sub del :Local {
-        my ( $self, $c, $id ) = @_;    
-        $c->response->body("delete #$id");
+sub del : Local {
+    my ( $self, $c, $id ) = @_;
+    $c->response->body("delete #$id");
 }
-
-
 
 =head1 AUTHOR
 
