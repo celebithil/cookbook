@@ -29,12 +29,7 @@ sub index : Path : Args(0) {
 sub view : Local {
     my ( $self, $c, $id ) = @_;
     $c->stash(
-        dish => [
-            $c->model('cookbookdb::Dish')->find(
-                { dish_id => $id  },
-                { columns   => [qw /dish_name receipt/] }
-            )
-        ]
+        dish => $c->model('cookbookdb::Dish')->find( $id )
     );
 }
 

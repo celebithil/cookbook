@@ -3,3 +3,5 @@
 <hr>
 <p>[% dish.receipt -%]</p>
 <hr>
+<a href = '/' ><img src="/static/images/exit.gif"></a>
+
