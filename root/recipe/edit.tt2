@@ -1,6 +1,6 @@
 [% META title = 'edit record' -%]
 <hr>
-<form method="post" action="[% c.uri_for('update/'dish.dish_id) %]">
+<form method="post" action= /recipe/update/[%dish.dish_id %]>
       <p>Наименование блюда:<input type="text" name="dish_name" value = "[% dish.dish_name -%]">
 	  <select name = "type_id">Выберите тип блюда</option>
 	  [% FOREACH type IN type %]

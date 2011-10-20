@@ -45,8 +45,7 @@ sub update : Local {
     my $dish_name = $c->request->params->{dish_name};
     my $type_id   = $c->request->params->{type_id};
     my $recipe    = $c->request->params->{recipe};
-    my $row =$c->model('cookbookdb::Dish')->search({dish_id => $id});
-	$row -> update(
+    my $row =$c->model('cookbookdb::Dish')->find($id) -> update(
         {
             dish_name => $dish_name,
             type_id   => $type_id,
