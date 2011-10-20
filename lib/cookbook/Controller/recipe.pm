@@ -28,9 +28,7 @@ sub index : Path : Args(0) {
 
 sub view : Local {
     my ( $self, $c, $id ) = @_;
-    $c->stash(
-        dish => $c->model('cookbookdb::Dish')->find( $id )
-    );
+    $c->stash( dish => $c->model('cookbookdb::Dish')->find($id) );
 }
 
 sub edit : Local {
@@ -66,13 +64,19 @@ sub insert : Local {
                 receipt   => $recipe
             }
         );
-        $c->response->body('Record added');
+        $c->stash(
+            template => 'recipe/after_insert.tt2',
+            message  => 'Запись добавлена'
+        );
     }
 }
 
 sub del : Local {
     my ( $self, $c, $id ) = @_;
-    $c->response->body("delete #$id");
+    $c->model('cookbookdb::Dish')->find($id)->delete;
+    $c->stash( message => 'Запись удалена' );
+
+    #$c->response->body("delete #$id");
 }
 
 =head1 AUTHOR
