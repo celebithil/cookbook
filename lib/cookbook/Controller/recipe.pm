@@ -33,7 +33,27 @@ sub view : Local {
 
 sub edit : Local {
     my ( $self, $c, $id ) = @_;
-    $c->response->body("edit #$id");
+    $c->stash(
+        dish => $c->model('cookbookdb::Dish')->find($id),
+        type => [ $c->model('cookbookdb::Type')->all ]
+    );
+
+}
+
+sub update : Local {
+    my ( $self, $c, $id ) = @_;
+    my $dish_name = $c->request->params->{dish_name};
+    my $type_id   = $c->request->params->{type_id};
+    my $recipe    = $c->request->params->{recipe};
+    my $row =$c->model('cookbookdb::Dish')->search({dish_id => $id});
+	$row -> update(
+        {
+            dish_name => $dish_name,
+            type_id   => $type_id,
+            receipt   => $recipe
+        }
+    );
+    $c->stash( message => 'Запись изменена', recipe => $recipe );
 }
 
 sub add : Local {
@@ -53,7 +73,10 @@ sub insert : Local {
         $c->stash(
             dish_name => $dish_name,
             recipe    => $recipe,
-            type      => [ $c->model('cookbookdb::Type')->all ]
+            type      => [
+                $c->model('cookbookdb::Type')->all,
+                template => 'recipe/add.tt2',
+            ]
         );
     }
     else {

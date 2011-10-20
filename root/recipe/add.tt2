@@ -8,7 +8,8 @@
 	  [% END %]
 	  </select></p>
 	  <p><b>Рецепт:</b></p>
-      <p><textarea name="recipe" rows="25" cols="80" value = [% recipe %]>
+      <p><textarea name="recipe" rows="25" cols="80">
+[% recipe %]
 	  </textarea></p>
       <p><input type="submit" name="Submit" value="Ввести"></p>
 </form>
