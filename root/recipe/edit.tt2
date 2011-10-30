@@ -2,7 +2,7 @@
 <hr>
 <form method="post" action= /recipe/update/[%dish.dish_id %]>
       <p>Наименование блюда:<input type="text" name="dish_name" value = "[% dish.dish_name -%]">
-	  <select name = "type_id">Выберите тип блюда</option>
+	  <select name = "type_id">Выберите тип блюда
 	  [% FOREACH type IN type %]
 	  <option value="[% dish.type_id %]">[% type.type_name %]</option>
 	  [% END %]

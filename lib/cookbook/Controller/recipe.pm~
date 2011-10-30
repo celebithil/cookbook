@@ -73,8 +73,9 @@ sub insert : Local {
             dish_name => $dish_name,
             recipe    => $recipe,
             type      => [
-                $c->model('cookbookdb::Type')->all],
+                $c->model('cookbookdb::Type')->all,
                 template => 'recipe/add.tt2',
+            ]
         );
     }
     else {
