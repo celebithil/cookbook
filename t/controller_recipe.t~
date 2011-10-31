@@ -11,4 +11,5 @@ ok( request('/recipe/view')->is_success, 'Request should succeed' );
 ok( request('/recipe/edit')->is_success, 'Request should succeed' );
 ok( request('/recipe/add')->is_success, 'Request should succeed' );
 ok( request('/recipe/insert')->is_success, 'Request should succeed' );
+ok( request('/recipe/del')->is_success, 'Request should succeed' );
 done_testing();

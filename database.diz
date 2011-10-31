@@ -14,7 +14,4 @@ create table type (
 );
 
 
-insert type values ('0', 'первое блюдо'), ('1','второе блюдо');
-
-
 

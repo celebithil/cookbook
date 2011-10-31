@@ -1,4 +1,4 @@
-#!C:\Perl\bin\perl.exe
+#!/usr/bin/env perl
 # IMPORTANT: if you delete this file your app will not work as
 # expected.  You have been warned.
 use inc::Module::Install;
@@ -7,7 +7,7 @@ use Module::Install::Catalyst; # Complain loudly if you don't have
                                # 'make dist' to create a standalone tarball.
 
 name 'cookbook';
-all_from 'lib\cookbook.pm';
+all_from 'lib/cookbook.pm';
 
 requires 'Catalyst::Runtime' => '5.90002';
 requires 'Catalyst::Plugin::ConfigLoader';
