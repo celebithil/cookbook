@@ -1,4 +1,4 @@
-[% # This is a TT comment. %]
+[% META title = 'Главная страница' -%]
 <head><title>[% title %]</title></head>
 <body>
 <hr>

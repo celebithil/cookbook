@@ -28,19 +28,14 @@ The root page (/)
 
 =cut
 
+# Список всех записей
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
-
-# Hello World
-#$c->response->body( $c->welcome_message );
-#$c->stash(dishs => [$c->model('cookbookdb::Dish')->all], title => 'Главная страница');
     $c->stash(
         dishs => [
             $c->model('cookbookdb::Dish')
               ->search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name' } )
-			  
-        ], 
-        title => 'Главная страница'
+        ]
     );
 
 }
