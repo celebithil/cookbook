@@ -1,4 +1,4 @@
-package cookbook::View::TT;
+package Cookbook::View::TT;
 
 use strict;
 use warnings;
@@ -13,15 +13,15 @@ __PACKAGE__->config(
 
 =head1 NAME
 
-cookbook::View::TT - TT View for cookbook
+Cookbook::View::TT - TT View for Cookbook
 
 =head1 DESCRIPTION
 
-TT View for cookbook.
+TT View for Cookbook.
 
 =head1 SEE ALSO
 
-L<cookbook>
+L<Cookbook>
 
 =head1 AUTHOR
 

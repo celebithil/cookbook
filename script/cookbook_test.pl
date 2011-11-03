@@ -1,7 +1,7 @@
 #!C:\Perl\bin\perl.exe
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('cookbook', 'Test');
+Catalyst::ScriptRunner->run('Cookbook', 'Test');
 
 1;
 

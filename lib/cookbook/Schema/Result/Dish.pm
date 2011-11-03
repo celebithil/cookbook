@@ -1,4 +1,4 @@
-package cookbook::Schema::Result::Dish;
+package Cookbook::Schema::Result::Dish;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
@@ -15,7 +15,7 @@ __PACKAGE__->load_components("InflateColumn::DateTime");
 
 =head1 NAME
 
-cookbook::Schema::Result::Dish
+Cookbook::Schema::Result::Dish
 
 =cut
 
@@ -78,13 +78,13 @@ __PACKAGE__->set_primary_key("dish_id");
 
 Type: belongs_to
 
-Related object: L<cookbook::Schema::Result::Type>
+Related object: L<Cookbook::Schema::Result::Type>
 
 =cut
 
 __PACKAGE__->belongs_to(
   "type",
-  "cookbook::Schema::Result::Type",
+  "Cookbook::Schema::Result::Type",
   { type_id => "type_id" },
   { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
 );

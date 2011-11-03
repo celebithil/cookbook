@@ -1,4 +1,4 @@
-package cookbook;
+package Cookbook;
 use Moose;
 use namespace::autoclean;
 use Catalyst::Runtime 5.80;
@@ -19,15 +19,8 @@ use Catalyst qw/
     -Debug
     ConfigLoader
     Static::Simple
-	Unicode::Encoding
+    Unicode::Encoding
 /;
-#use Catalyst qw/
-#    -Debug
-#    ConfigLoader
-#    Static::Simple
-#    Unicode::Encoding
-#/;
-
 
 extends 'Catalyst';
 
@@ -43,7 +36,7 @@ our $VERSION = '0.01';
 # local deployment.
 
 __PACKAGE__->config(
-    name => 'cookbook',
+    name => 'Cookbook',
     # Disable deprecated behavior needed by old applications
     disable_component_resolution_regex_fallback => 1,
 );
@@ -54,7 +47,7 @@ __PACKAGE__->setup();
 
 =head1 NAME
 
-cookbook - Catalyst based application
+Cookbook - Catalyst based application
 
 =head1 SYNOPSIS
 
@@ -66,7 +59,7 @@ cookbook - Catalyst based application
 
 =head1 SEE ALSO
 
-L<cookbook::Controller::Root>, L<Catalyst>
+L<Cookbook::Controller::Root>, L<Catalyst>
 
 =head1 AUTHOR
 

@@ -1,13 +1,13 @@
-package cookbook::Controller::recipe;
+package Cookbook::Controller::Recipe;
 use Moose;
 use namespace::autoclean;
 use utf8;
-
+# Модуль CRUD для рецептов
 BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-cookbook::Controller::recipe - Catalyst Controller
+Cookbook::Controller::Recipe - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -23,23 +23,22 @@ Catalyst Controller.
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
-    $c->response->body('Matched cookbook::Controller::recipe in recipe.');
+    $c->response->body( 'Matched Cookbook::Controller::Recipe in recipe.' );
 }
 
 # Просмотр рецепта
 sub view : Local {
     my ( $self, $c, $id ) = @_;
-    $c->stash( dish => $c->model('cookbookdb::Dish')->find($id) );
+    $c->stash( dish => $c->model( 'CookbookDB::Dish' )->find($id) );
 }
 
 # Вывод формы для редактирования рецепта
 sub edit : Local {
     my ( $self, $c, $id ) = @_;
     $c->stash(
-        dish => $c->model('cookbookdb::Dish')->find($id),
-        type => [ $c->model('cookbookdb::Type')->all ]
+        dish => $c->model( 'CookbookDB::Dish' )->find( $id ),
+        type => [ $c->model( 'CookbookDB::Type' )->all ]
     );
-
 }
 
 # Запись в базу измененного рецепта
@@ -48,7 +47,7 @@ sub update : Local {
     my $dish_name = $c->request->params->{dish_name};
     my $type_id   = $c->request->params->{type_id};
     my $recipe    = $c->request->params->{recipe};
-    my $row       = $c->model('cookbookdb::Dish')->find($id)->update(
+    my $row       = $c->model( 'CookbookDB::Dish' )->find( $id )->update(
         {
             dish_name => $dish_name,
             type_id   => $type_id,
@@ -62,7 +61,7 @@ sub update : Local {
 sub add : Local {
     my ( $self, $c ) = @_;
     $c->stash(
-        type  => [ $c->model('cookbookdb::Type')->all ],
+        type  => [ $c->model( 'CookbookDB::Type' )->all ],
         title => "Добавить запись"
     );
 }
@@ -74,19 +73,20 @@ sub insert : Local {
     my $type_id   = $c->request->params->{type_id};
     my $recipe    = $c->request->params->{recipe};
     # Если рецепт или его имя не введены, то добавления не происходит
-	# форма добавление выводится заново
-	unless ( $dish_name && $recipe ) {
+    # форма добавление выводится заново
+    unless ( $dish_name && $recipe ) {
         $c->stash(
             dish_name => $dish_name,
             recipe    => $recipe,
             type      => [
-                $c->model('cookbookdb::Type')->all],
-                template => 'recipe/add.tt2',
+                $c->model( 'CookbookDB::Type' )->all
+            ],
+            template  => 'recipe/add.tt2',
         );
     }
     # Добавление нового рецепта в базу
-	else {
-        $c->model('cookbookdb::Dish')->create(
+    else {
+        $c->model( 'Cookbookdb::Dish' )->create(
             {
                 dish_name => $dish_name,
                 type_id   => $type_id,
@@ -103,7 +103,7 @@ sub insert : Local {
 # удаление записи из базы
 sub del : Local {
     my ( $self, $c, $id ) = @_;
-    $c->model('cookbookdb::Dish')->find($id)->delete;
+    $c->model( 'Cookbookdb::Dish' )->find( $id )->delete;
     $c->stash( message => 'Запись удалена' );
 }
 

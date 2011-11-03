@@ -1,7 +1,7 @@
 #!C:\Perl\bin\perl.exe
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('cookbook', 'FastCGI');
+Catalyst::ScriptRunner->run('Cookbook', 'FastCGI');
 
 1;
 

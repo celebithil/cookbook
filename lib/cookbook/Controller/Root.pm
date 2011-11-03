@@ -1,9 +1,9 @@
-package cookbook::Controller::Root;
+package Cookbook::Controller::Root;
 use Moose;
 use namespace::autoclean;
 use utf8;
 
-
+# Модуль используется для вывода всех записей
 BEGIN { extends 'Catalyst::Controller' }
 
 #
@@ -14,7 +14,7 @@ __PACKAGE__->config( namespace => '' );
 
 =head1 NAME
 
-cookbook::Controller::Root - Root Controller for cookbook
+Cookbook::Controller::Root - Root Controller for cookbook
 
 =head1 DESCRIPTION
 
@@ -33,11 +33,17 @@ sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash(
         dishs => [
-            $c->model('cookbookdb::Dish')
-              ->search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name' } )
+            $c->model( 'CookbookDB::Dish' )
+                ->search( {}, 
+                    {
+                        columns => [qw /dish_name dish_id/],
+                        join => 'type',
+                        prefetch => 'type',
+                        order_by => 'dish_name'
+                    } 
+                )
         ]
     );
-
 }
 
 =head2 default
