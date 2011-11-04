@@ -5,7 +5,7 @@ BEGIN {
 }
 
 use Catalyst::ScriptRunner;
-Catalyst::ScriptRunner->run('cookbook', 'Server');
+Catalyst::ScriptRunner->run('Cookbook', 'Server');
 
 1;
 
