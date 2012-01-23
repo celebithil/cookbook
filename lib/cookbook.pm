@@ -21,6 +21,13 @@ use Catalyst qw/
     Static::Simple
     Unicode::Encoding
 /;
+#use Catalyst qw/
+#    -Debug
+#    ConfigLoader
+#    Static::Simple
+#    Unicode::Encoding
+#/;
+
 
 extends 'Catalyst';
 

@@ -3,7 +3,7 @@ use Moose;
 use namespace::autoclean;
 use utf8;
 
-# Модуль используется для вывода всех записей
+
 BEGIN { extends 'Catalyst::Controller' }
 
 #
@@ -33,17 +33,11 @@ sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash(
         dishs => [
-            $c->model( 'CookbookDB::Dish' )
-                ->search( {}, 
-                    {
-                        columns => [qw /dish_name dish_id/],
-                        join => 'type',
-                        prefetch => 'type',
-                        order_by => 'dish_name'
-                    } 
-                )
+            $c->model('CookbookDB::Dish')
+              ->search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name' } )
         ]
     );
+
 }
 
 =head2 default
