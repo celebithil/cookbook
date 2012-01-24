@@ -19,7 +19,6 @@ use Catalyst qw/
     -Debug
     ConfigLoader
     Static::Simple
-    Unicode::Encoding
 /;
 #use Catalyst qw/
 #    -Debug

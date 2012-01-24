@@ -10,7 +10,6 @@ __PACKAGE__->config(
         dsn => 'dbi:mysql:cookbook',
         user => 'root',
         password => 'solid',
-        mysql_enable_utf8 => q{1},
     }
 );
 
