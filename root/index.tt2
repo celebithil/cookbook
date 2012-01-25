@@ -1,6 +1,7 @@
 [% META title = 'Главная страница' -%]
 <head><title>[% title %]</title></head>
 <body>
+<p align="right"> <a href = type/><b>Справочник типов блюд</b><img src="/static/images/spr.gif"></a> </p>
 <hr>
 <table border>
 <tr>
