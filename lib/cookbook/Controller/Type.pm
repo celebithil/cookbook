@@ -32,6 +32,13 @@ sub index : Path : Args(0) {
 
 }
 
+# удаление записи из базы
+sub del : Local {
+    my ( $self, $c, $id ) = @_;
+    $c->model('CookbookDB::Type')->find($id)->delete;
+    $c->stash( message => 'Запись удалена' );
+}
+
 =head1 AUTHOR
 
 A clever guy

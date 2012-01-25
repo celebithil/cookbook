@@ -1,4 +1,4 @@
-[% META title = 'Recipe deleted' -%]
+[% META title = 'Recipe updated' -%]
 <p><b>[% message -%]</b></p>
 <hr>
 [% recipe -%]
