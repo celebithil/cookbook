@@ -1,7 +1,6 @@
 package Cookbook::Controller::Recipe;
 use Moose;
 use namespace::autoclean;
-use utf8;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -86,7 +85,7 @@ sub insert : Local {
     }
     # Добавление нового рецепта в базу
 	else {
-        $c->model('Cookbookdb::Dish')->create(
+        $c->model('CookbookDB::Dish')->create(
             {
                 dish_name => $dish_name,
                 type_id   => $type_id,
@@ -103,7 +102,7 @@ sub insert : Local {
 # удаление записи из базы
 sub del : Local {
     my ( $self, $c, $id ) = @_;
-    $c->model('Cookbookdb::Dish')->find($id)->delete;
+    $c->model('CookbookDB::Dish')->find($id)->delete;
     $c->stash( message => 'Запись удалена' );
 }
 
