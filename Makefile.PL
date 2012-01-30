@@ -6,8 +6,8 @@ use Module::Install::Catalyst; # Complain loudly if you don't have
                                # Catalyst::Devel installed or haven't said
                                # 'make dist' to create a standalone tarball.
 
-name 'cookbook';
-all_from 'lib/cookbook.pm';
+name 'Cookbook';
+all_from 'lib/Cookbook.pm';
 
 requires 'Catalyst::Runtime' => '5.90002';
 requires 'Catalyst::Plugin::ConfigLoader';
