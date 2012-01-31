@@ -38,6 +38,11 @@ sub del : Local {
     $c->model('CookbookDB::Type')->find($id)->delete;
     $c->stash( message => 'Запись удалена' );
 }
+# просмотр записи
+sub view : Local {
+    my ( $self, $c, $id ) = @_;
+    $c->stash( type => $c->model('CookbookDB::Type')->find($id) );
+}
 
 =head1 AUTHOR
 
