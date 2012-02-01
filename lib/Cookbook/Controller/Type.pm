@@ -41,8 +41,48 @@ sub del : Local {
 # просмотр записи
 sub view : Local {
     my ( $self, $c, $id ) = @_;
-    $c->stash( type => $c->model('CookbookDB::Type')->find($id) );
+    #$c->stash( type => $c->model('CookbookDB::Type')->find($id) );
+    $c->stash( message => $id );
 }
+
+# Вывод формы для добавления нового рецепта
+sub add : Local {
+    my ( $self, $c ) = @_;
+    $c->stash(
+        title => "Добавить запись",
+    );
+}
+# Добавление нового рецепта в базу
+sub insert : Local {
+    my ( $self, $c ) = @_;
+    my $type_name = $c->request->params->{type_name};
+    
+    # Если имя типа не введено, то добавления не происходит
+	# форма добавление выводится заново
+	unless ( $type_name ) {
+        $c->stash(
+            type_name => $type_name,
+            template => 'type/add.tt2',
+        );
+    }
+    # Добавление нового рецепта в базу
+	else {
+        $c->model('CookbookDB::Type')->create(
+            {
+                type_name => $type_name,
+            }
+        );
+        $c->stash(
+            template => 'type/after_insert.tt2',
+            message  => 'Запись добавлена'
+        );
+    }
+}
+
+
+
+
+
 
 =head1 AUTHOR
 

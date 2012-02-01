@@ -1,0 +1,5 @@
+[% META title = 'Type added' -%]
+<p><b>[% message -%]</b></p>
+<hr>
+<a href = '/type' ><img src="/static/images/exit.gif"></a>
+

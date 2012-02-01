@@ -1,0 +1,10 @@
+[% META title = 'add type' -%]
+<hr>
+<form method="post" action="[% c.uri_for('insert') %]">
+     <p>Тип блюда:<input type="text" name="type_name" value = [% type_name %]></p>
+     <p><input type="submit" name="Submit" value="Ввести"></p>
+</form>
+<hr>
+</body>
+    
+    
