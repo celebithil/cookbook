@@ -12,7 +12,7 @@
 <tr>
 <td> [% type.type_name -%] </td>
 <td>  <a href = /type/edit/[% type.type_id %]>     <img src="/static/images/edit.gif"></a> </td>
-<td>  <a href = /type/viev/[% type.type_id %]>     <img src="/static/images/view.gif"></td>
+<td>  <a href = /type/view/[% type.type_id %]>     <img src="/static/images/view.gif"></td>
 <td>  <a href = /type/del/[% type.type_id %]>  <img src="/static/images/delete.gif"></td>
 [% END %]
 </tr>

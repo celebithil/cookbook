@@ -41,8 +41,8 @@ sub del : Local {
 # просмотр записи
 sub view : Local {
     my ( $self, $c, $id ) = @_;
-    #$c->stash( type => $c->model('CookbookDB::Type')->find($id) );
-    $c->stash( message => $id );
+    $c->stash( type => $c->model('CookbookDB::Type')->find($id) );
+    #$c->stash( message => $id );
 }
 
 # Вывод формы для добавления нового рецепта
