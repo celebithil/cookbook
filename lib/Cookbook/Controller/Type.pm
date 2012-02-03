@@ -65,7 +65,7 @@ sub insert : Local {
             template => 'type/add.tt2',
         );
     }
-    # Добавление нового рецепта в базу
+    # Добавление нового типа в базу
 	else {
         $c->model('CookbookDB::Type')->create(
             {
@@ -79,7 +79,26 @@ sub insert : Local {
     }
 }
 
+sub edit : Local {
+    my ( $self, $c, $id ) = @_;
+    $c->stash(
+        type => $c->model('CookbookDB::Type')->find($id),
+    );
+}
 
+# Запись в базу измененного типа
+sub update : Local {
+    my ( $self, $c, $id ) = @_;
+    my $type_name = $c->request->params->{type_name};
+    my $type_id   = $c->request->params->{type_id};
+    my $row       = $c->model('CookbookDB::Type')->find($id)->update(
+        {
+            type_name => $type_name,
+            type_id   => $type_id,
+        }
+    );
+    $c->stash( message => 'Запись изменена', type => $type_name );
+}
 
 
 
