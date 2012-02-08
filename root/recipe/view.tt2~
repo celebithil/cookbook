@@ -1,4 +1,4 @@
-[% title = 'Рецепт' -%]
+[% META title = 'Recipe' -%]
 <p><b>[% dish.dish_name -%]</b></p>
 <hr>
 <p>[% dish.receipt -%]</p>

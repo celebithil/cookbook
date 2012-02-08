@@ -1,4 +1,4 @@
-[% META title = 'Recipe deleted' -%]
+[% title = 'Рецепт удален' -%]
 <p><b>[% message -%]</b></p>
 <hr>
 <a href = '/' ><img src="/static/images/exit.gif"></a>

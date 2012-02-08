@@ -1,7 +1,5 @@
-[% title = 'Рецепт обновлен' -%]
+[% META title = 'Recipe added' -%]
 <p><b>[% message -%]</b></p>
-<hr>
-[% recipe -%]
 <hr>
 <a href = '/' ><img src="/static/images/exit.gif"></a>
 

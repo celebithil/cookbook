@@ -1,6 +1,6 @@
-[% title = 'Рецепт' -%]
+[% META title = 'add record' -%]
 <hr>
-<form method="post" action="[% c.uri_for(c.controller('Recipe').action_for('insert')) %]">
+<form method="post" action="[% c.uri_for('insert') %]">
      <p>Наименование блюда:<input type="text" name="dish_name" value = [% dish_name %]>
 	  <select name = "type_id">Выберите тип блюда</option>
 	  [% FOREACH type IN type %]
