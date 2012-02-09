@@ -1,7 +1,0 @@
-[% META title = 'Recipe' -%]
-<p><b>[% dish.dish_name -%]</b></p>
-<hr>
-<p>[% dish.receipt -%]</p>
-<hr>
-<a href = '/' ><img src="/static/images/exit.gif"></a>
-
