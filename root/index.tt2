@@ -1,8 +1,5 @@
 [% title = 'Главная страница' -%]
-<head><title>[% title %]</title></head>
-<body>
-<p align="right"> <a href = type/><b>Справочник типов блюд</b><img src="/static/images/spr.gif"></a> </p>
-<hr>
+[% PROCESS header.tt2%]
 <table border>
 <tr>
 <td><b>Название</b></td><td><b>Вид блюда</b></td>
@@ -19,5 +16,4 @@
 </table>
 <hr>
 <a href = recipe/add><img src="/static/images/new.gif">
-</body>
-
+[% PROCESS footer.tt2%]

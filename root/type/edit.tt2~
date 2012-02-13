@@ -1,12 +1,11 @@
-[% title = 'Редактировать тип блюда' -%]
-[% PROCESS header.tt2%]
+[% META title = 'edit type record' -%]
+<hr>
 <form method="post" action= /type/update/[%type.type_id %]>
       <p>Тип блюда:<input type="text" name="type_name" value = "[% type.type_name -%]"></p>
       <input type="hidden" name = "type_id" value= [%type.type_id %]>
       <p><input type="submit" name="Submit" value="Изменить"></p>
 </form>
-[% PROCESS footer.tt2%]
-
-
+<hr>
+</body>
     
     

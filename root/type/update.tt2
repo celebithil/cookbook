@@ -1,7 +1,9 @@
-[% META title = 'Type updated' -%]
+[% title = 'Type updated' -%]
+[% PROCESS header.tt2%]
 <p><b>[% message -%]</b></p>
 <hr>
 [% type -%]
 <hr>
 <a href = '/type' ><img src="/static/images/exit.gif"></a>
+[% PROCESS footer.tt2%]
 

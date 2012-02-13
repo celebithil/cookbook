@@ -1,6 +1,6 @@
-[% PROCESS header.tt2%]
 [% title = 'Рецепт добавлен' -%]
+
 <p><b>[% message -%]</b></p>
 <hr>
 <a href = '/' ><img src="/static/images/exit.gif"></a>
-[% PROCESS footer.tt2%]
+

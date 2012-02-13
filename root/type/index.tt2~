@@ -1,4 +1,4 @@
-[% title = 'Список типов блюд' -%]
+[% title = 'Главная страница' -%]
 [% PROCESS header.tt2%]
 <table border>
 <tr>

@@ -1,0 +1,9 @@
+<table width="100%">
+<col align = "left">
+<col align = "right">
+<tr>
+<td> <a href="[% c.uri_for(c.controller('Root').action_for('index')) %]">Главная</a></td>
+<td> <a href="[% c.uri_for(c.controller('Type').action_for('index')) %]">Справочник типов</td>
+</tr>
+</table>
+<hr>
