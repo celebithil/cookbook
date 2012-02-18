@@ -36,7 +36,11 @@ sub edit : Local {
     my ( $self, $c, $id ) = @_;
     $c->stash(
         dish => $c->model('CookbookDB::Dish')->find($id),
-        type => [ $c->model('CookbookDB::Type')->all ]
+        type => [ $c->model('CookbookDB::Type')->search({},{order_by => 'type_name'})->all ],
+        current_type => $c->model('CookbookDB::Type')->find(
+        { 'dishes.type_id' => $id},
+        {join => 'dishes'} 
+        ),
     );
 
 }

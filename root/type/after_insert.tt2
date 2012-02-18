@@ -1,4 +1,4 @@
-[%title = 'Рецепт удален' -%]
+[%title = 'Тип добавлен' -%]
 [% PROCESS header.tt2%]
 <p><b>[% message -%]</b></p>
 <hr>

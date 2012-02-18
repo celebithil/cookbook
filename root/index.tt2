@@ -1,8 +1,5 @@
-[% META title = 'Главная страница' -%]
-<head><title>[% title %]</title></head>
-<body>
-<p align="right"> <a href = type/><b>Справочник типов блюд</b><img src="/static/images/spr.gif"></a> </p>
-<hr>
+[% title = 'Главная страница' -%]
+[% PROCESS header.tt2%]
 <table border>
 <tr>
 <td><b>Название</b></td><td><b>Вид блюда</b></td>
@@ -11,13 +8,12 @@
 <tr>
 <td>[% dish.dish_name -%]</td>
 <td>[% dish.type.type_name -%]</td>
-<td><a href = recipe/edit/[% dish.dish_id %]><img src="/static/images/edit.gif"></a>
-</td> <td><a href = recipe/view/[% dish.dish_id %]><img src="/static/images/view.gif"></td>
-</td> <td><a href = recipe/del/[% dish.dish_id %]><img src="/static/images/delete.gif"></td>
+<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('edit'),dish.dish_id) %]"><img src="/static/images/edit.gif"></a></td>
+<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('view'),dish.dish_id) %]"><img src="/static/images/view.gif"></a></td>
+<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('del'),dish.dish_id) %]"><img src="/static/images/delete.gif"></a></td>
 [% END %]
 </tr>
 </table>
 <hr>
 <a href = recipe/add><img src="/static/images/new.gif">
-</body>
-
+[% PROCESS footer.tt2%]
