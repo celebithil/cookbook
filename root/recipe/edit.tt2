@@ -4,7 +4,11 @@
       <p>Наименование блюда:<input type="text" name="dish_name" value = "[% dish.dish_name -%]">
 	  <select name = "type_id">Выберите тип блюда
 	  [% FOREACH type IN type %]
-	  <option value="[% dish.type_id %]">[% type.type_name %]</option>
+     [% IF type.type_id == current_type.type_id %]
+     <option selected value=[% current_type.type_id %]>[% current_type.type_name %]</option>	  
+     [% ELSE %]	  
+	  <option value="[% type.type_id %]">[% type.type_name %]</option>
+	  [% END %]
 	  [% END %]
 	  </select></p>
 	  <p><b>Рецепт:</b></p>

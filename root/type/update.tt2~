@@ -1,7 +1,0 @@
-[% META title = 'Type updated' -%]
-<p><b>[% message -%]</b></p>
-<hr>
-[% type -%]
-<hr>
-<a href = '/type' ><img src="/static/images/exit.gif"></a>
-

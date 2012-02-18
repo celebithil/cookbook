@@ -1,7 +1,0 @@
-[% title = 'Тип блюда' -%]
-<p><b>[% type.type_name -%]</b></p>
-<hr>
-<p>[% type.type_id -%]</p>
-<hr>
-<a href = "[% c.uri_for('/type') %]" ><img src="/static/images/exit.gif"></a>
-
