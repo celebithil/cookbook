@@ -31,7 +31,7 @@ CREATE TABLE `dish` (
   UNIQUE KEY `dish_id` (`dish_id`),
   KEY `type_id` (`type_id`),
   CONSTRAINT `dish_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,6 @@ CREATE TABLE `dish` (
 
 LOCK TABLES `dish` WRITE;
 /*!40000 ALTER TABLE `dish` DISABLE KEYS */;
-INSERT INTO `dish` VALUES (1,'суп',1,'варим суп'),(2,'котлета',2,'жарим котлету'),(3,'арбуз',3,'режем арбуз');
 /*!40000 ALTER TABLE `dish` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,7 +55,7 @@ CREATE TABLE `type` (
   `type_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`type_id`),
   UNIQUE KEY `type_id` (`type_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -65,7 +64,6 @@ CREATE TABLE `type` (
 
 LOCK TABLES `type` WRITE;
 /*!40000 ALTER TABLE `type` DISABLE KEYS */;
-INSERT INTO `type` VALUES (1,'первое'),(2,'второе'),(3,'десерт');
 /*!40000 ALTER TABLE `type` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -78,4 +76,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-18 20:31:18
+-- Dump completed on 2012-02-18 19:57:16
