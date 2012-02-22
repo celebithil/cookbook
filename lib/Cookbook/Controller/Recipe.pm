@@ -89,6 +89,7 @@ sub insert : Local {
     }
     # Добавление нового рецепта в базу
 	else {
+	$recipe =~ s/\r\n/<br>/g;
         $c->model('CookbookDB::Dish')->create(
             {
                 dish_name => $dish_name,
