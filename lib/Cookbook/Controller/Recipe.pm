@@ -34,13 +34,17 @@ sub view : Local {
 # Вывод формы для редактирования рецепта
 sub edit : Local {
     my ( $self, $c, $id ) = @_;
+    my $dish  = $c->model('CookbookDB::Dish')->find($id);
+    my $recipe = $dish->recipe;
+    $recipe =~  s/<br>/\n/g;
     $c->stash(
-        dish => $c->model('CookbookDB::Dish')->find($id),
+	dish =>  $dish,
         type => [ $c->model('CookbookDB::Type')->search({},{order_by => 'type_name'})->all ],
         current_type => $c->model('CookbookDB::Type')->find(
         { 'dishes.type_id' => $id},
         {join => 'dishes'} 
         ),
+        recipe => $recipe,
     );
 
 }
@@ -51,11 +55,12 @@ sub update : Local {
     my $dish_name = $c->request->params->{dish_name};
     my $type_id   = $c->request->params->{type_id};
     my $recipe    = $c->request->params->{recipe};
+    $recipe =~ s/\n/<br>/g;
     my $row       = $c->model('CookbookDB::Dish')->find($id)->update(
         {
             dish_name => $dish_name,
             type_id   => $type_id,
-            receipt   => $recipe
+            recipe  => $recipe
         }
     );
     $c->stash( message => 'Запись изменена', recipe => $recipe );
@@ -89,11 +94,12 @@ sub insert : Local {
     }
     # Добавление нового рецепта в базу
 	else {
+	$recipe =~ s/\r\n/<br>/g;
         $c->model('CookbookDB::Dish')->create(
             {
                 dish_name => $dish_name,
                 type_id   => $type_id,
-                receipt   => $recipe
+                recipe  => $recipe
             }
         );
         $c->stash(

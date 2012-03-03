@@ -43,7 +43,7 @@ __PACKAGE__->table("dish");
   is_foreign_key: 1
   is_nullable: 0
 
-=head2 receipt
+=head2 recipe
 
   data_type: 'text'
   is_nullable: 1
@@ -67,7 +67,7 @@ __PACKAGE__->add_columns(
     is_foreign_key => 1,
     is_nullable => 0,
   },
-  "receipt",
+  "recipe",
   { data_type => "text", is_nullable => 1 },
 );
 __PACKAGE__->set_primary_key("dish_id");
