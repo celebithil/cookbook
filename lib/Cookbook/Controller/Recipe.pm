@@ -34,18 +34,17 @@ sub view : Local {
 # Вывод формы для редактирования рецепта
 sub edit : Local {
     my ( $self, $c, $id ) = @_;
-    my $recipe  = $c->model('CookbookDB::Dish')->find($id);
-    my $test = $recipe->receipt;
-    $test =~  s/<br>/\n/g;
+    my $dish  = $c->model('CookbookDB::Dish')->find($id);
+    my $recipe = $dish->recipe;
+    $recipe =~  s/<br>/\n/g;
     $c->stash(
-        #dish => $c->model('CookbookDB::Dish')->find($id),
-	dish =>  $recipe,
+	dish =>  $dish,
         type => [ $c->model('CookbookDB::Type')->search({},{order_by => 'type_name'})->all ],
         current_type => $c->model('CookbookDB::Type')->find(
         { 'dishes.type_id' => $id},
         {join => 'dishes'} 
         ),
-        test => $test,
+        recipe => $recipe,
     );
 
 }
@@ -61,7 +60,7 @@ sub update : Local {
         {
             dish_name => $dish_name,
             type_id   => $type_id,
-            receipt   => $recipe
+            recipe  => $recipe
         }
     );
     $c->stash( message => 'Запись изменена', recipe => $recipe );
@@ -100,7 +99,7 @@ sub insert : Local {
             {
                 dish_name => $dish_name,
                 type_id   => $type_id,
-                receipt   => $recipe
+                recipe  => $recipe
             }
         );
         $c->stash(

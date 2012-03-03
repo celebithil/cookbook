@@ -26,7 +26,7 @@ CREATE TABLE `dish` (
   `dish_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `dish_name` varchar(100) DEFAULT NULL,
   `type_id` bigint(20) unsigned NOT NULL,
-  `receipt` text,
+  `recipe` text,
   PRIMARY KEY (`dish_id`),
   UNIQUE KEY `dish_id` (`dish_id`),
   KEY `type_id` (`type_id`),

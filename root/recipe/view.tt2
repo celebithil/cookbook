@@ -2,7 +2,7 @@
 [% title = 'Рецепт' -%]
 <p><b>[% dish.dish_name -%]</b></p>
 <hr>
-<p>[% dish.receipt -%]</p>
+<p>[% dish.recipe -%]</p>
 <hr>
 <a href = '/' ><img src="/static/images/exit.gif"></a>
 [% PROCESS footer.tt2%]

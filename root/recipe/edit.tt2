@@ -5,8 +5,8 @@
     <select name = "type_id">Выберите тип блюда
 	 [% FOREACH type IN type %]
     [% IF type.type_id == current_type.type_id %]
-    <option selected value=[% current_type.type_id %]>[% current_type.type_name %]</option>	  
-    [% ELSE %]	  
+    <option selected value=[% current_type.type_id %]>[% current_type.type_name %]</option>
+    [% ELSE %]
 	 <option value="[% type.type_id %]">[% type.type_name %]</option>
 	 [% END %]
 	 [% END %]
@@ -14,7 +14,7 @@
 </p>
 	  <p><b>Рецепт:</b></p>
      <p><textarea name="recipe" rows="25" cols="80">
-[% test -%]
+[% recipe -%]
 	  </textarea></p>
       <p><input type="submit" name="Submit" value="Изменить"></p>
 </form>
