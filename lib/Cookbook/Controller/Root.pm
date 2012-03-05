@@ -29,13 +29,11 @@ The root page (/)
 
 # Список всех записей
 sub index : Path : Args(0) {
-    my ( $self, $c ) = @_;
-    $c->stash(
-        dishs => [
-            $c->model('CookbookDB::Dish')
-              ->search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name' } )
-        ]
-    );
+    my ( $self, $c, $page ) = @_;
+    $page //= 1;    
+    my $dishes = $c->model('CookbookDB::Dish')->search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name', page => $page, rows => 5 } );       
+    my $dishs = [$dishes -> all]; 
+    $c->stash( dishs => $dishs );
 
 }
 
