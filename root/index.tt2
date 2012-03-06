@@ -15,5 +15,10 @@
 </tr>
 </table>
 <hr>
-<a href = recipe/add><img src="/static/images/new.gif">
+[% FOREACH page IN pages %]
+<a href = "[% c.uri_for(c.controller('Root').action_for('index'),page) %]">[% page %]&nbsp;</a>
+
+[% END %]
+<hr>
+<a href = "[% c.uri_for(c.controller('Recipe').action_for('add')) %]"><img src="/static/images/new.gif"></a>
 [% PROCESS footer.tt2%]

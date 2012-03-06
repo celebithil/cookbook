@@ -28,13 +28,13 @@ The root page (/)
 =cut
 
 # Список всех записей
-sub index : Path : Args(0) {
-    my ( $self, $c, $page ) = @_;
+sub index : Path : Args(1) {
+    my ( $self, $c, $page) = @_;
     $page //= 1;    
-    my $dishes = $c->model('CookbookDB::Dish')->search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name', page => $page, rows => 5 } );       
-    my $dishs = [$dishes -> all]; 
-    $c->stash( dishs => $dishs );
-
+    my $rs = $c->model('CookbookDB::Dish') -> search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name', rows => 5, page => $page} );
+    my $pager = $rs -> pager;
+    my $dishs = [$rs -> all];
+    $c->stash( dishs => $dishs,  pages => [$pager->first_page..$pager ->last_page]);
 }
 
 =head2 default
