@@ -16,7 +16,7 @@
 </table>
 <hr>
 [% FOREACH page IN pages %]
-<a href = "[% c.uri_for(c.controller('Root').action_for('index'),page) %]">[% page %]&nbsp;</a>
+<a href = "[% c.uri_for(c.controller('Root').action_for('page'),page) %]">[% page %]&nbsp;</a>
 
 [% END %]
 <hr>
