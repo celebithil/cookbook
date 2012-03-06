@@ -35,7 +35,7 @@ sub index : Path : Args(0) {
     my $dishs = [$rs -> all];
     $c->stash( dishs => $dishs,  pages => [$pager->first_page..$pager ->last_page]);
 }
-
+# Вопрос, оставить всё как есть или сделать всё индексом?
 sub page : Path : Args(1) {
     my ( $self, $c, $page) = @_;
     $page //= 1;    
