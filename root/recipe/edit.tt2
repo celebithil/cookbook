@@ -16,7 +16,8 @@
      <p><textarea name="recipe" rows="25" cols="80">
 [% recipe -%]
 	  </textarea></p>
-      <p><input type="submit" name="Submit" value="Изменить"></p>
+      <p><input type="submit" name="submit" value="Изменить">
+      </p>
 </form>
 [% PROCESS footer.tt2%]
 
