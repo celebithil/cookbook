@@ -34,16 +34,17 @@ sub view : Local {
 # Вывод формы для редактирования рецепта
 sub edit : Local {
     my ( $self, $c, $id ) = @_;
-    my $dish  = $c->model('CookbookDB::Dish')->find($id);
+    my $dish   = $c->model('CookbookDB::Dish')->find($id);
     my $recipe = $dish->recipe;
-    $recipe =~  s/<br>/\n/g;
+    $recipe =~ s/<br>/\n/g;
     $c->stash(
-	dish =>  $dish,
-        type => [ $c->model('CookbookDB::Type')->search({},{order_by => 'type_name'})->all ],
-        current_type => $c->model('CookbookDB::Type')->find(
-        { 'dishes.type_id' => $id},
-        {join => 'dishes'} 
-        ),
+        dish => $dish,
+        type => [
+            $c->model('CookbookDB::Type')
+              ->search( {}, { order_by => 'type_name' } )->all
+        ],
+        current_type => $c->model('CookbookDB::Type')
+          ->find( { 'dishes.type_id' => $id }, { join => 'dishes' } ),
         recipe => $recipe,
     );
 
@@ -56,11 +57,11 @@ sub update : Local {
     my $type_id   = $c->request->params->{type_id};
     my $recipe    = $c->request->params->{recipe};
     $recipe =~ s/\n/<br>/g;
-    my $row       = $c->model('CookbookDB::Dish')->find($id)->update(
+    my $row = $c->model('CookbookDB::Dish')->find($id)->update(
         {
             dish_name => $dish_name,
             type_id   => $type_id,
-            recipe  => $recipe
+            recipe    => $recipe
         }
     );
     $c->stash( message => 'Запись изменена', recipe => $recipe );
@@ -81,25 +82,26 @@ sub insert : Local {
     my $dish_name = $c->request->params->{dish_name};
     my $type_id   = $c->request->params->{type_id};
     my $recipe    = $c->request->params->{recipe};
-    # Если рецепт или его имя не введены, то добавления не происходит
-	# форма добавление выводится заново
-	unless ( $dish_name && $recipe ) {
+
+# Если рецепт или его имя не введены, то добавления не происходит
+# форма добавление выводится заново
+    unless ( $dish_name && $recipe ) {
         $c->stash(
             dish_name => $dish_name,
             recipe    => $recipe,
-            type      => [
-                $c->model('CookbookDB::Type')->all],
-                template => 'recipe/add.tt2',
+            type      => [ $c->model('CookbookDB::Type')->all ],
+            template  => 'recipe/add.tt2',
         );
     }
+
     # Добавление нового рецепта в базу
-	else {
-	$recipe =~ s/\r\n/<br>/g;
+    else {
+        $recipe =~ s/\r\n/<br>/g;
         $c->model('CookbookDB::Dish')->create(
             {
                 dish_name => $dish_name,
                 type_id   => $type_id,
-                recipe  => $recipe
+                recipe    => $recipe
             }
         );
         $c->stash(

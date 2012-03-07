@@ -2,7 +2,6 @@ package Cookbook::Controller::Root;
 use Moose;
 use namespace::autoclean;
 
-
 BEGIN { extends 'Catalyst::Controller' }
 
 #
@@ -29,33 +28,49 @@ The root page (/)
 
 # Список всех записей
 sub index : Path : Args(0) {
-    my ( $self, $c) = @_;    
-    my $rs = $c->model('CookbookDB::Dish') -> search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name', rows => 5, page => 1} );
-    my $pager = $rs -> pager;
-    my $dishs = [$rs -> all];
-    $c->stash( dishs => $dishs,  pages => [$pager->first_page..$pager ->last_page]);
+    my ( $self, $c ) = @_;
+    my $rs = $c->model('CookbookDB::Dish')->search(
+        {},
+        {
+            columns  => [qw /dish_name dish_id/],
+            join     => 'type',
+            prefetch => 'type',
+            order_by => 'dish_name',
+            rows     => 5,
+            page     => 1
+        }
+    );
+    my $pager = $rs->pager;
+    my $dishs = [ $rs->all ];
+    $c->stash(
+        dishs => $dishs,
+        pages => [ $pager->first_page .. $pager->last_page ]
+    );
 }
+
 # Вопрос, оставить всё как есть или сделать всё индексом?
 sub page : Path : Args(1) {
-    my ( $self, $c, $page) = @_;
-    $page //= 1;    
-    my $rs = $c->model('CookbookDB::Dish') -> search( {}, { columns => [qw /dish_name dish_id/], join => 'type', prefetch => 'type', order_by => 'dish_name', rows => 5, page => $page} );
-    my $pager = $rs -> pager;
-    my $dishs = [$rs -> all];
-    $c->stash( dishs => $dishs,  pages => [$pager->first_page..$pager ->last_page], template => 'index.tt2');
+    my ( $self, $c, $page ) = @_;
+    $page //= 1;
+    my $rs = $c->model('CookbookDB::Dish')->search(
+        {},
+        {
+            columns  => [qw /dish_name dish_id/],
+            join     => 'type',
+            prefetch => 'type',
+            order_by => 'dish_name',
+            rows     => 5,
+            page     => $page
+        }
+    );
+    my $pager = $rs->pager;
+    my $dishs = [ $rs->all ];
+    $c->stash(
+        dishs    => $dishs,
+        pages    => [ $pager->first_page .. $pager->last_page ],
+        template => 'index.tt2'
+    );
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 =head2 default
 
