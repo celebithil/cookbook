@@ -1,8 +1,8 @@
-[% PROCESS header.tt2%]
+[% PROCESS header.tt%]
 [% title = 'Рецепт' -%]
 <p><b>[% dish.dish_name -%]</b></p>
 <hr>
 <p>[% dish.recipe -%]</p>
 <hr>
 <a href = '/' ><img src="/static/images/exit.gif"></a>
-[% PROCESS footer.tt2%]
+[% PROCESS footer.tt%]

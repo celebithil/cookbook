@@ -1,4 +1,4 @@
-[% PROCESS header.tt2%]
+[% PROCESS header.tt%]
 [% title = 'Редактировать рецепт' -%]
 <form method="post" action= "[% c.uri_for(c.controller('Recipe').action_for('update'), dish.dish_id) %]">
 <p>Наименование блюда:<input type="text" name="dish_name" value = "[% dish.dish_name -%]">
@@ -19,7 +19,7 @@
       <p><input type="submit" name="submit" value="Изменить">
       </p>
 </form>
-[% PROCESS footer.tt2%]
+[% PROCESS footer.tt%]
 
     
     

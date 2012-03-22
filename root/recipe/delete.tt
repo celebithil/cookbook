@@ -1,0 +1,15 @@
+[% PROCESS header.tt %]
+
+[% title = 'удаление рецепта'  %]
+<form method="post" action="[% c.uri_for('delete') %]">
+<input type="hidden" name="id" value="[% dish.dish_id %]" />
+
+Подтвердите удаление рецепта '[% dish.dish_name %]'.
+
+<br /><br />
+<input type="submit" name="submit" value="Да" />
+<input type="submit" name="cancel" value="Нет" />
+
+</form>
+
+[% PROCESS footer.tt %]
