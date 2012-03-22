@@ -1,9 +1,10 @@
 [% title = 'Редактировать тип блюда' -%]
 [% PROCESS header.tt%]
-<form method="post" action= /type/update/[%type.type_id %]>
-      <p>Тип блюда:<input type="text" name="type_name" value = "[% type.type_name -%]"></p>
-      <input type="hidden" name = "type_id" value= [%type.type_id %]>
-      <p><input type="submit" name="Submit" value="Изменить"></p>
+<form method="post" action= [% c.uri_for('update')%]>
+      <p>Тип блюда:<input type="text" name="name" value = "[% type.type_name -%]"></p>
+      <input type="hidden" name = "id" value= [%type.type_id %]>
+      <input type="submit" name="submit" value="Изменить">
+      <input type="submit" name="cancel" value="Отменить">      
 </form>
 [% PROCESS footer.tt%]
 

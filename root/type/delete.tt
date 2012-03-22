@@ -1,0 +1,15 @@
+[% PROCESS header.tt %]
+
+[% title = 'удаление типа'  %]
+<form method="post" action="[% c.uri_for('delete') %]">
+<input type="hidden" name="id" value="[% type.type_id %]" />
+
+Подтвердите удаление типа '[% type.type_name %]'.
+
+<br /><br />
+<input type="submit" name="submit" value="Да" />
+<input type="submit" name="cancel" value="Нет" />
+
+</form>
+
+[% PROCESS footer.tt %]

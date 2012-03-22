@@ -36,20 +36,23 @@ sub index : Path : Args(0) {
 
 }
 
-sub delete_form : Local {
+
+# запрос на удаление записи из базы
+sub delete_form : Path('delete') Args(1) {
     my ( $self, $c, $id ) = @_;
-    $c->model('CookbookDB::Type')->find($id)->delete;
-    $c->stash( message => 'Запись удалена' );
+    $c->stash(
+        template => 'type/delete.tt',
+        type => $c->model('CookbookDB::Type')->find($id));
 }
 
-
-
-
 # удаление записи из базы
-sub delete : Local {
-    my ( $self, $c, $id ) = @_;
-    $c->model('CookbookDB::Type')->find($id)->delete;
-    $c->stash( message => 'Запись удалена' );
+sub delete : Local Args(0) {
+    my ($self, $c) = @_;
+    my $p = $c->request->params;
+    if (defined $$p{submit}) {
+        $c->model('CookbookDB::Type')->find($$p{id})->delete;
+    }
+    $c->response->redirect('/type');
 }
 
 # просмотр записи
@@ -57,7 +60,6 @@ sub view : Local {
     my ( $self, $c, $id ) = @_;
     $c->stash( type => $c->model('CookbookDB::Type')->find($id) );
 
-    #$c->stash( message => $id );
 }
 
 # Вывод формы для добавления нового рецепта
@@ -69,25 +71,22 @@ sub add : Local {
 # Добавление нового рецепта в базу
 sub insert : Local {
     my ( $self, $c ) = @_;
-    my $type_name = $c->request->params->{type_name};
-
-# Если имя типа не введено, то добавления не происходит
-# форма добавление выводится заново
-    unless ($type_name) {
-        $c->stash(
-            type_name => $type_name,
-            template  => 'type/add.tt',
-        );
+    my $p = $c->request->params;
+    # Проверка подтверждения
+    if (defined $$p{submit}) {
+        # Если имя типа не введено, то добавления не происходит
+        # форма добавление выводится заново
+        unless ($$p{type_name}) {
+            $c->response->redirect('/type/add');
+            return;
+        }
+        # Добавление нового типа в базу
+        else {
+            $c->model('CookbookDB::Type')->create( { type_name => $$p{type_name}, } );
+        }
     }
+    $c->response->redirect('/type');
 
-    # Добавление нового типа в базу
-    else {
-        $c->model('CookbookDB::Type')->create( { type_name => $type_name, } );
-        $c->stash(
-            template => 'type/after_insert.tt',
-            message  => 'Запись добавлена'
-        );
-    }
 }
 
 sub edit : Local {
@@ -97,16 +96,17 @@ sub edit : Local {
 
 # Запись в базу измененного типа
 sub update : Local {
-    my ( $self, $c, $id ) = @_;
-    my $type_name = $c->request->params->{type_name};
-    my $type_id   = $c->request->params->{type_id};
-    my $row       = $c->model('CookbookDB::Type')->find($id)->update(
-        {
-            type_name => $type_name,
-            type_id   => $type_id,
-        }
-    );
-    $c->stash( message => 'Запись изменена', type => $type_name );
+    my ( $self, $c) = @_;
+    my $p = $c->request->params;
+    # Проверка подтверждения
+    if (defined $$p{submit}) {
+        my $row = $c->model('CookbookDB::Type')->find($$p{id})->update(
+            {
+                type_name => $$p{name},
+            }
+        );
+    }
+    $c->response->redirect('/type');
 }
 
 =head1 AUTHOR

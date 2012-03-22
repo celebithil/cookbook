@@ -53,18 +53,20 @@ sub edit : Local {
 # Запись в базу измененного рецепта
 sub update : Local {
     my ( $self, $c, $id ) = @_;
-    my $dish_name = $c->request->params->{dish_name};
-    my $type_id   = $c->request->params->{type_id};
-    my $recipe    = $c->request->params->{recipe};
-    $recipe =~ s/\n/<br>/g;
-    my $row = $c->model('CookbookDB::Dish')->find($id)->update(
-        {
-            dish_name => $dish_name,
-            type_id   => $type_id,
-            recipe    => $recipe
-        }
-    );
-    $c->stash( message => 'Запись изменена', recipe => $recipe );
+    my $p = $c->request->params;
+    
+    # Проверка на подтверждение редактирования
+    if (defined $$p{submit}) {
+        $$p{recipe} =~ s/\n/<br>/g;
+        my $row = $c->model('CookbookDB::Dish')->find($id)->update(
+            {
+                dish_name => $$p{dish_name},
+                type_id   => $$p{type_id},
+                recipe    => $$p{recipe},
+            }
+        );
+    }
+    $c->response->redirect('/');
 }
 
 # Вывод формы для добавления нового рецепта
@@ -106,7 +108,7 @@ sub insert : Local {
     $c->response->redirect('/');
 }
 
-    # запрос на удаление записи из базы
+# запрос на удаление записи из базы
 sub delete_form :Path('delete') Args(1) {
     my ( $self, $c, $id ) = @_;
     $c->stash(
@@ -114,8 +116,8 @@ sub delete_form :Path('delete') Args(1) {
         dish => $c->model('CookbookDB::Dish')->find($id));
 }
 
-    # удаление записи из базы
-sub delete :Path('delete') Args(0) {
+# удаление записи из базы
+sub delete : Local Args(0) {
     my ($self, $c) = @_;
     my $p = $c->request->params;
 
