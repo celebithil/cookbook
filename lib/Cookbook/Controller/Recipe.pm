@@ -72,51 +72,59 @@ sub add : Local {
     my ( $self, $c ) = @_;
     $c->stash(
         type  => [ $c->model('CookbookDB::Type')->all ],
-        title => "Добавить запись"
+        title => "Добавить запись",
     );
 }
 
 # Добавление нового рецепта в базу
 sub insert : Local {
     my ( $self, $c ) = @_;
-    my $dish_name = $c->request->params->{dish_name};
-    my $type_id   = $c->request->params->{type_id};
-    my $recipe    = $c->request->params->{recipe};
+    my $p = $c->request->params;
 
-# Если рецепт или его имя не введены, то добавления не происходит
-# форма добавление выводится заново
-    unless ( $dish_name && $recipe ) {
-        $c->stash(
-            dish_name => $dish_name,
-            recipe    => $recipe,
-            type      => [ $c->model('CookbookDB::Type')->all ],
-            template  => 'recipe/add.tt2',
-        );
-    }
+    # если подтверджения нет, то выводится список рецептов
+    if (defined $$p{submit}) {
+    # Если рецепт или его имя не введены, то добавления не происходит
+    # форма добавление выводится заново
+        unless ( $$p{dish_name} && $$p{recipe} ) {
+            $c->response->redirect('/recipe/add');
+            return;
+        }
 
-    # Добавление нового рецепта в базу
-    else {
-        $recipe =~ s/\r\n/<br>/g;
-        $c->model('CookbookDB::Dish')->create(
-            {
-                dish_name => $dish_name,
-                type_id   => $type_id,
-                recipe    => $recipe
-            }
-        );
-        $c->stash(
-            template => 'recipe/after_insert.tt2',
-            message  => 'Запись добавлена'
-        );
+        # Добавление нового рецепта в базу
+        else {
+            $$p{recipe} =~ s/\r\n/<br>/g;
+            $c->model('CookbookDB::Dish')->create(
+                {
+                    dish_name => $$p{dish_name},
+                    type_id   => $$p{type_id},
+                    recipe    => $$p{recipe},
+                }
+            );
+        }
+        
     }
+    $c->response->redirect('/');
 }
 
-# удаление записи из базы
-sub del : Local {
+    # запрос на удаление записи из базы
+sub delete_form :Path('delete') Args(1) {
     my ( $self, $c, $id ) = @_;
-    $c->model('CookbookDB::Dish')->find($id)->delete;
-    $c->stash( message => 'Запись удалена' );
+    $c->stash(
+        template => 'recipe/delete.tt',
+        dish => $c->model('CookbookDB::Dish')->find($id));
 }
+
+    # удаление записи из базы
+sub delete :Path('delete') Args(0) {
+    my ($self, $c) = @_;
+    my $p = $c->request->params;
+
+    if (defined $$p{submit}) {
+        $c->model('CookbookDB::Dish')->find( $$p{id})->delete;
+    }
+    $c->response->redirect('/');
+}
+
 
 =head1 AUTHOR
 

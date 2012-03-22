@@ -1,5 +1,6 @@
-[% PROCESS header.tt2%]
+[% PROCESS header.tt%]
 [% title = 'Рецепт' -%]
+
 <form method="post" action="[% c.uri_for(c.controller('Recipe').action_for('insert')) %]">
      <p>Наименование блюда:<input type="text" name="dish_name" value = [% dish_name %]>
 	  <select name = "type_id">Выберите тип блюда</option>
@@ -9,6 +10,7 @@
 	  </select></p>
 	  <p><b>Рецепт:</b></p>
 <p><textarea name="recipe" rows="25" cols="80">[% recipe %]</textarea></p>
-      <p><input type="submit" name="Submit" value="Ввести"></p>
+      <input type="submit" name="submit" value="Ввести">
+      <input type="submit" name="cancel" value="Отменить">
 </form>
-[% PROCESS footer.tt2%]
+[% PROCESS footer.tt%]

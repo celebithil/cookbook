@@ -36,8 +36,17 @@ sub index : Path : Args(0) {
 
 }
 
+sub delete_form : Local {
+    my ( $self, $c, $id ) = @_;
+    $c->model('CookbookDB::Type')->find($id)->delete;
+    $c->stash( message => 'Запись удалена' );
+}
+
+
+
+
 # удаление записи из базы
-sub del : Local {
+sub delete : Local {
     my ( $self, $c, $id ) = @_;
     $c->model('CookbookDB::Type')->find($id)->delete;
     $c->stash( message => 'Запись удалена' );
@@ -67,7 +76,7 @@ sub insert : Local {
     unless ($type_name) {
         $c->stash(
             type_name => $type_name,
-            template  => 'type/add.tt2',
+            template  => 'type/add.tt',
         );
     }
 
@@ -75,7 +84,7 @@ sub insert : Local {
     else {
         $c->model('CookbookDB::Type')->create( { type_name => $type_name, } );
         $c->stash(
-            template => 'type/after_insert.tt2',
+            template => 'type/after_insert.tt',
             message  => 'Запись добавлена'
         );
     }

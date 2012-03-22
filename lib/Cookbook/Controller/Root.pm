@@ -1,7 +1,9 @@
 package Cookbook::Controller::Root;
 use Moose;
 use namespace::autoclean;
-
+use constant {
+    PAGE_ROWS  => 5
+};
 BEGIN { extends 'Catalyst::Controller' }
 
 #
@@ -36,7 +38,7 @@ sub index : Path : Args(0) {
             join     => 'type',
             prefetch => 'type',
             order_by => 'dish_name',
-            rows     => 5,
+            rows     => PAGE_ROWS,
             page     => 1
         }
     );
@@ -48,7 +50,7 @@ sub index : Path : Args(0) {
     );
 }
 
-# Вопрос, оставить всё как есть или сделать всё индексом?
+#Постраничный вывод
 sub page : Path : Args(1) {
     my ( $self, $c, $page ) = @_;
     $page //= 1;
@@ -59,7 +61,7 @@ sub page : Path : Args(1) {
             join     => 'type',
             prefetch => 'type',
             order_by => 'dish_name',
-            rows     => 5,
+            rows     => PAGE_ROWS,
             page     => $page
         }
     );
@@ -68,7 +70,7 @@ sub page : Path : Args(1) {
     $c->stash(
         dishs    => $dishs,
         pages    => [ $pager->first_page .. $pager->last_page ],
-        template => 'index.tt2'
+        template => 'index.tt'
     );
 }
 
