@@ -39,14 +39,14 @@ sub index : Path : Args(0) {
             prefetch => 'type',
             order_by => 'dish_name',
             rows     => PAGE_ROWS,
-            page     => 1
+            page     => 1,
         }
     );
     my $pager = $rs->pager;
     my $dishs = [ $rs->all ];
     $c->stash(
         dishs => $dishs,
-        pages => [ $pager->first_page .. $pager->last_page ]
+        pages => [ $pager->first_page .. $pager->last_page ],
     );
 }
 
@@ -62,7 +62,7 @@ sub page : Path : Args(1) {
             prefetch => 'type',
             order_by => 'dish_name',
             rows     => PAGE_ROWS,
-            page     => $page
+            page     => $page,
         }
     );
     my $pager = $rs->pager;
@@ -70,7 +70,7 @@ sub page : Path : Args(1) {
     $c->stash(
         dishs    => $dishs,
         pages    => [ $pager->first_page .. $pager->last_page ],
-        template => 'index.tt'
+        template => 'index.tt',
     );
 }
 
