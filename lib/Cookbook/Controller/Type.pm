@@ -49,8 +49,8 @@ sub delete_form : Path('delete') Args(1) {
 sub delete : Local Args(0) {
     my ($self, $c) = @_;
     my $p = $c->request->params;
-    if (defined $$p{submit}) {
-        $c->model('CookbookDB::Type')->find($$p{id})->delete;
+    if (defined $p->{submit}) {
+        $c->model('CookbookDB::Type')->find($p->{id})->delete;
     }
     $c->response->redirect('/type');
 }
@@ -65,7 +65,7 @@ sub view : Local {
 # Вывод формы для добавления нового рецепта
 sub add : Local {
     my ( $self, $c ) = @_;
-    $c->stash( title => "Добавить запись", );
+    $c->stash();
 }
 
 # Добавление нового рецепта в базу
@@ -73,16 +73,16 @@ sub insert : Local {
     my ( $self, $c ) = @_;
     my $p = $c->request->params;
     # Проверка подтверждения
-    if (defined $$p{submit}) {
+    if (defined $p->{submit}) {
         # Если имя типа не введено, то добавления не происходит
         # форма добавление выводится заново
-        unless ($$p{type_name}) {
+        unless ($p->{type_name}) {
             $c->response->redirect('/type/add');
             return;
         }
         # Добавление нового типа в базу
         else {
-            $c->model('CookbookDB::Type')->create( { type_name => $$p{type_name}, } );
+            $c->model('CookbookDB::Type')->create( { type_name => $p->{type_name}, } );
         }
     }
     $c->response->redirect('/type');
@@ -99,10 +99,10 @@ sub update : Local {
     my ( $self, $c) = @_;
     my $p = $c->request->params;
     # Проверка подтверждения
-    if (defined $$p{submit}) {
-        my $row = $c->model('CookbookDB::Type')->find($$p{id})->update(
+    if (defined $p->{submit}) {
+        my $row = $c->model('CookbookDB::Type')->find($p->{id})->update(
             {
-                type_name => $$p{name},
+                type_name => $p->{name},
             }
         );
     }

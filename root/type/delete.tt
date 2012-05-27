@@ -1,6 +1,5 @@
+[% title = 'Удалить тип'  %]
 [% PROCESS header.tt %]
-
-[% title = 'удаление типа'  %]
 <form method="post" action="[% c.uri_for('delete') %]">
 <input type="hidden" name="id" value="[% type.type_id %]" />
 

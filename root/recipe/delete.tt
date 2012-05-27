@@ -1,6 +1,5 @@
+[% title = 'Удалить рецепт'  %]
 [% PROCESS header.tt %]
-
-[% title = 'удаление рецепта'  %]
 <form method="post" action="[% c.uri_for('delete') %]">
 <input type="hidden" name="id" value="[% dish.dish_id %]" />
 

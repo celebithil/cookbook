@@ -56,13 +56,13 @@ sub update : Local {
     my $p = $c->request->params;
     
     # Проверка на подтверждение редактирования
-    if (defined $$p{submit}) {
-        $$p{recipe} =~ s/\n/<br>/g;
+    if (defined $p->{submit}) {
+        $p->{recipe} =~ s/\n/<br>/g;
         my $row = $c->model('CookbookDB::Dish')->find($id)->update(
             {
-                dish_name => $$p{dish_name},
-                type_id   => $$p{type_id},
-                recipe    => $$p{recipe},
+                dish_name => $p->{dish_name},
+                type_id   => $p->{type_id},
+                recipe    => $p->{recipe},
             }
         );
     }
@@ -74,7 +74,6 @@ sub add : Local {
     my ( $self, $c ) = @_;
     $c->stash(
         type  => [ $c->model('CookbookDB::Type')->all ],
-        title => "Добавить запись",
     );
 }
 
@@ -84,22 +83,22 @@ sub insert : Local {
     my $p = $c->request->params;
 
     # если подтверджения нет, то выводится список рецептов
-    if (defined $$p{submit}) {
+    if (defined $p->{submit}) {
     # Если рецепт или его имя не введены, то добавления не происходит
     # форма добавление выводится заново
-        unless ( $$p{dish_name} && $$p{recipe} ) {
+        unless ( $p->{dish_name} && $p->{recipe} ) {
             $c->response->redirect('/recipe/add');
             return;
         }
 
         # Добавление нового рецепта в базу
         else {
-            $$p{recipe} =~ s/\r\n/<br>/g;
+            $p->{recipe} =~ s/\r\n/<br>/g;
             $c->model('CookbookDB::Dish')->create(
                 {
-                    dish_name => $$p{dish_name},
-                    type_id   => $$p{type_id},
-                    recipe    => $$p{recipe},
+                    dish_name => $p->{dish_name},
+                    type_id   => $p->{type_id},
+                    recipe    => $p->{recipe},
                 }
             );
         }
@@ -121,8 +120,8 @@ sub delete : Local Args(0) {
     my ($self, $c) = @_;
     my $p = $c->request->params;
 
-    if (defined $$p{submit}) {
-        $c->model('CookbookDB::Dish')->find( $$p{id})->delete;
+    if (defined $p->{submit}) {
+        $c->model('CookbookDB::Dish')->find($p->{id})->delete;
     }
     $c->response->redirect('/');
 }
