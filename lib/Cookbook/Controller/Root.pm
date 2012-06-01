@@ -42,11 +42,9 @@ sub index : Path : Args(0) {
             page     => 1,
         }
     );
-    my $pager = $rs->pager;
-    my $dishs = [ $rs->all ];
     $c->stash(
-        dishs => $dishs,
-        pages => [ $pager->first_page .. $pager->last_page ],
+		dishs => [ $rs->all ],
+        pages => [$rs->pager->first_page .. $rs->pager->last_page], 
     );
 }
 
@@ -65,11 +63,9 @@ sub page : Path : Args(1) {
             page     => $page,
         }
     );
-    my $pager = $rs->pager;
-    my $dishs = [ $rs->all ];
     $c->stash(
-        dishs    => $dishs,
-        pages    => [ $pager->first_page .. $pager->last_page ],
+        dishs    => [ $rs->all ],
+        pages    => [ $rs->pager->first_page .. $rs->pager->last_page ],
         template => 'index.tt',
     );
 }
