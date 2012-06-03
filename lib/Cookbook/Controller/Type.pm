@@ -22,16 +22,15 @@ Catalyst Controller.
 
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
+        my $rs = $c->model('CookbookDB::Type')->search(
+            {},
+            {
+                columns  => [qw /type_name type_id/],
+                order_by => 'type_name'
+            }
+        );
     $c->stash(
-        types => [
-            $c->model('CookbookDB::Type')->search(
-                {},
-                {
-                    columns  => [qw /type_name type_id/],
-                    order_by => 'type_name'
-                }
-            )
-        ]
+        types => $rs,
     );
 
 }
@@ -71,18 +70,18 @@ sub add : Local {
 # Добавление нового рецепта в базу
 sub insert : Local {
     my ( $self, $c ) = @_;
-    my $p = $c->request->params;
+    my $param = $c->request->params;
     # Проверка подтверждения
-    if (defined $p->{submit}) {
+    if (defined $param->{submit}) {
         # Если имя типа не введено, то добавления не происходит
         # форма добавление выводится заново
-        unless ($p->{type_name}) {
+        unless ($param->{type_name}) {
             $c->response->redirect('/type/add');
             return;
         }
         # Добавление нового типа в базу
         else {
-            $c->model('CookbookDB::Type')->create( { type_name => $p->{type_name}, } );
+            $c->model('CookbookDB::Type')->create( { type_name => $param->{type_name}, } );
         }
     }
     $c->response->redirect('/type');
@@ -97,14 +96,12 @@ sub edit : Local {
 # Запись в базу измененного типа
 sub update : Local {
     my ( $self, $c) = @_;
-    my $p = $c->request->params;
+    my $param = $c->request->params;
     # Проверка подтверждения
-    if (defined $p->{submit}) {
-        my $row = $c->model('CookbookDB::Type')->find( $p->{id} )->update(
-            {
-                type_name => $p->{name},
-            }
-        );
+    if (defined $param->{submit}) {
+        my $row = $c->model('CookbookDB::Type')->find( $param->{id} )->update({
+            type_name => $param->{name},
+        });
     }
     $c->response->redirect('/type');
 }

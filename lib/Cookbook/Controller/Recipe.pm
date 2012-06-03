@@ -37,14 +37,14 @@ sub edit : Local {
     my $dish   = $c->model('CookbookDB::Dish')->find($id);
     my $recipe = $dish->recipe;
     $recipe =~ s/<br>/\n/g;
+    my $type = $c->model('CookbookDB::Type') ->search(
+        {}, { order_by => 'type_name' } 
+    );
+
     $c->stash(
         dish => $dish,
-        type => [
-            $c->model('CookbookDB::Type')
-              ->search( {}, { order_by => 'type_name' } )->all
-        ],
-        current_type => $c->model('CookbookDB::Type')
-          ->find( { 'dishes.type_id' => $id }, { join => 'dishes' } ),
+        types => $type,
+        current_type => $dish->type_id,
         recipe => $recipe,
     );
 
@@ -53,18 +53,16 @@ sub edit : Local {
 # Запись в базу измененного рецепта
 sub update : Local {
     my ( $self, $c, $id ) = @_;
-    my $p = $c->request->params;
+    my $param = $c->request->params;
     
     # Проверка на подтверждение редактирования
-    if (defined $p->{submit}) {
-        $p->{recipe} =~ s/\n/<br>/g;
-        my $row = $c->model('CookbookDB::Dish')->find($id)->update(
-            {
-                dish_name => $p->{dish_name},
-                type_id   => $p->{type_id},
-                recipe    => $p->{recipe},
-            }
-        );
+    if (defined $param->{submit}) {
+        $param->{recipe} =~ s/\n/<br>/g;
+        my $row = $c->model('CookbookDB::Dish')->find($id)->update({
+                dish_name => $param->{dish_name},
+                type_id   => $param->{type_id},
+                recipe    => $param->{recipe},
+        });
     }
     $c->response->redirect('/');
 }
@@ -80,29 +78,26 @@ sub add : Local {
 # Добавление нового рецепта в базу
 sub insert : Local {
     my ( $self, $c ) = @_;
-    my $p = $c->request->params;
+    my $param = $c->request->params;
 
     # если подтверджения нет, то выводится список рецептов
-    if (defined $p->{submit}) {
+    if (defined $param->{submit}) {
     # Если рецепт или его имя не введены, то добавления не происходит
     # форма добавление выводится заново
-        unless ( $p->{dish_name} && $p->{recipe} ) {
+        unless ( $param->{dish_name} && $param->{recipe} ) {
             $c->response->redirect('/recipe/add');
             return;
         }
 
         # Добавление нового рецепта в базу
         else {
-            $p->{recipe} =~ s/\r\n/<br>/g;
-            $c->model('CookbookDB::Dish')->create(
-                {
-                    dish_name => $p->{dish_name},
-                    type_id   => $p->{type_id},
-                    recipe    => $p->{recipe},
-                }
-            );
+            $param->{recipe} =~ s/\r\n/<br>/g;
+            $c->model('CookbookDB::Dish')->create({
+                    dish_name => $param->{dish_name},
+                    type_id   => $param->{type_id},
+                    recipe    => $param->{recipe},
+            });
         }
-        
     }
     $c->response->redirect('/');
 }
@@ -118,10 +113,10 @@ sub delete_form :Path('delete') Args(1) {
 # удаление записи из базы
 sub delete : Local Args(0) {
     my ($self, $c) = @_;
-    my $p = $c->request->params;
+    my $param = $c->request->params;
 
-    if (defined $p->{submit}) {
-        $c->model('CookbookDB::Dish')->find($p->{id})->delete;
+    if (defined $param->{submit}) {
+        $c->model('CookbookDB::Dish')->find( $param->{id} )->delete;
     }
     $c->response->redirect('/');
 }

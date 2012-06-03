@@ -4,7 +4,7 @@
 <tr>
 <td><b>Вид блюда</b></td>
 </tr>
-[% FOREACH type IN types %]
+[% WHILE (type=types.next) %]
 <tr>
 <td> [% type.type_name -%] </td>
 <td>  <a href = "[% c.uri_for(c.controller('Type').action_for('edit'),type.type_id) %]">     <img src="/static/images/edit.gif"></a> </td>
