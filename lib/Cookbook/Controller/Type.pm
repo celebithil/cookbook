@@ -48,9 +48,9 @@ sub delete_form : Path('delete') Args(1) {
 # удаление записи из базы
 sub delete : Local Args(0) {
     my ($self, $c) = @_;
-    my $p = $c->request->params;
-    if (defined $p->{submit}) {
-        $c->model('CookbookDB::Type')->find($p->{id})->delete;
+    my $param = $c->request->params;
+    if (defined $param->{submit}) {
+        $c->model('CookbookDB::Type')->find( $param->{id} )->delete;
     }
     $c->response->redirect('/type');
 }
@@ -100,7 +100,7 @@ sub update : Local {
     my $p = $c->request->params;
     # Проверка подтверждения
     if (defined $p->{submit}) {
-        my $row = $c->model('CookbookDB::Type')->find($p->{id})->update(
+        my $row = $c->model('CookbookDB::Type')->find( $p->{id} )->update(
             {
                 type_name => $p->{name},
             }

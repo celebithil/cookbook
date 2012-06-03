@@ -4,7 +4,7 @@
 <tr>
 <td><b>Название</b></td><td><b>Вид блюда</b></td>
 </tr>
-[% FOREACH dish IN dishs %]
+[% WHILE (dish = dishs.next)  %]
 <tr>
 <td>[% dish.dish_name -%]</td>
 <td>[% dish.type.type_name -%]</td>

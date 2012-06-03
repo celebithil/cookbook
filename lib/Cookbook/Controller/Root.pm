@@ -43,8 +43,8 @@ sub index : Path : Args(0) {
         }
     );
     $c->stash(
-		dishs => [ $rs->all ],
-        pages => [$rs->pager->first_page .. $rs->pager->last_page], 
+        dishs => $rs,
+        pages => [$rs->pager->first_page .. $rs->pager->last_page],
     );
 }
 
@@ -64,7 +64,7 @@ sub page : Path : Args(1) {
         }
     );
     $c->stash(
-        dishs    => [ $rs->all ],
+        dishs    => $rs,
         pages    => [ $rs->pager->first_page .. $rs->pager->last_page ],
         template => 'index.tt',
     );
