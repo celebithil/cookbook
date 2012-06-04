@@ -1,5 +1,4 @@
 [% title = 'Удалить рецепт'  %]
-[% PROCESS header.tt %]
 <form method="post" action="[% c.uri_for('delete') %]">
 <input type="hidden" name="id" value="[% dish.dish_id %]" />
 
@@ -10,5 +9,3 @@
 <input type="submit" name="cancel" value="Нет" />
 
 </form>
-
-[% PROCESS footer.tt %]

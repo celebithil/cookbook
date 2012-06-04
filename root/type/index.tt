@@ -1,5 +1,4 @@
 [% title = 'Список типов блюд' -%]
-[% PROCESS header.tt%]
 <table border>
 <tr>
 <td><b>Вид блюда</b></td>
@@ -15,5 +14,3 @@
 </table>
 <hr>
 <a href = /type/add><img src="/static/images/new.gif">
-[% PROCESS footer.tt%]
-

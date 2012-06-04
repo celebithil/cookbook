@@ -1,5 +1,4 @@
 [% title = 'Главная страница' -%]
-[% PROCESS header.tt%]
 <table border>
 <tr>
 <td><b>Название</b></td><td><b>Вид блюда</b></td>
@@ -20,4 +19,3 @@
 [% END %]
 <hr>
 <a href = "[% c.uri_for(c.controller('Recipe').action_for('add')) %]"><img src="/static/images/new.gif"></a>
-[% PROCESS footer.tt%]

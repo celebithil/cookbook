@@ -1,13 +1,7 @@
 [% title = 'Редактировать тип блюда' -%]
-[% PROCESS header.tt%]
 <form method="post" action= [% c.uri_for('update')%]>
       <p>Тип блюда:<input type="text" name="name" value = "[% type.type_name -%]"></p>
       <input type="hidden" name = "id" value= [%type.type_id %]>
       <input type="submit" name="submit" value="Изменить">
       <input type="submit" name="cancel" value="Отменить">      
 </form>
-[% PROCESS footer.tt%]
-
-
-    
-    
