@@ -48,7 +48,7 @@ sub delete_form : Path('delete') Args(1) {
 sub delete : Local Args(0) {
     my ($self, $c) = @_;
     my $param = $c->request->params;
-    if (defined $param->{submit}) {
+    if ($param->{submit} eq 'Да') {
         $c->model('CookbookDB::Type')->find( $param->{id} )->delete;
     }
     $c->response->redirect('/type');
@@ -72,7 +72,7 @@ sub insert : Local {
     my ( $self, $c ) = @_;
     my $param = $c->request->params;
     # Проверка подтверждения
-    if (defined $param->{submit}) {
+    if ( $param->{submit} eq 'Ввести' ) {
         # Если имя типа не введено, то добавления не происходит
         # форма добавление выводится заново
         unless ($param->{type_name}) {
@@ -98,7 +98,7 @@ sub update : Local {
     my ( $self, $c) = @_;
     my $param = $c->request->params;
     # Проверка подтверждения
-    if (defined $param->{submit}) {
+    if ( $param->{submit} eq 'Изменить' ) {
         my $row = $c->model('CookbookDB::Type')->find( $param->{id} )->update({
             type_name => $param->{name},
         });
