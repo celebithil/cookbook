@@ -56,7 +56,7 @@ sub update : Local {
     my $param = $c->request->params;
     
     # Проверка на подтверждение редактирования
-    if (defined $param->{submit}) {
+    if ( $param->{submit} eq 'Изменить') {
         $param->{recipe} =~ s/\n/<br>/g;
         my $row = $c->model('CookbookDB::Dish')->find($id)->update({
                 dish_name => $param->{dish_name},
@@ -81,7 +81,7 @@ sub insert : Local {
     my $param = $c->request->params;
 
     # если подтверджения нет, то выводится список рецептов
-    if (defined $param->{submit}) {
+    if ( $param->{submit} eq 'Ввести') {
     # Если рецепт или его имя не введены, то добавления не происходит
     # форма добавление выводится заново
         unless ( $param->{dish_name} && $param->{recipe} ) {
@@ -115,7 +115,7 @@ sub delete : Local Args(0) {
     my ($self, $c) = @_;
     my $param = $c->request->params;
 
-    if (defined $param->{submit}) {
+    if ( $param->{submit} eq 'Да') {
         $c->model('CookbookDB::Dish')->find( $param->{id} )->delete;
     }
     $c->response->redirect('/');
