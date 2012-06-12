@@ -20,7 +20,13 @@ Catalyst Controller.
 
 =cut
 
-sub index : Path : Args(0) {
+sub index :Path :Args(0) {
+    my ( $self, $c ) = @_;
+    $c->response->redirect( '/type/list' );
+}
+
+# список типов блюд
+sub list :Path :Args(0) {
     my ( $self, $c ) = @_;
         my $rs = $c->model('CookbookDB::Type')->search(
             {},
@@ -35,9 +41,8 @@ sub index : Path : Args(0) {
 
 }
 
-
 # запрос на удаление записи из базы
-sub delete_form : Path('delete') Args(1) {
+sub delete_form :Path('delete') :Args(1) {
     my ( $self, $c, $id ) = @_;
     $c->stash(
         template => 'type/delete.tt',
@@ -45,30 +50,30 @@ sub delete_form : Path('delete') Args(1) {
 }
 
 # удаление записи из базы
-sub delete : Local Args(0) {
+sub delete :Local :Args(0) {
     my ($self, $c) = @_;
     my $param = $c->request->params;
     if ($param->{submit} eq 'Да') {
         $c->model('CookbookDB::Type')->find( $param->{id} )->delete;
     }
-    $c->response->redirect('/type');
+    $c->response->redirect('/type/list');
 }
 
 # просмотр записи
-sub view : Local {
+sub view :Local :Args(1) {
     my ( $self, $c, $id ) = @_;
     $c->stash( type => $c->model('CookbookDB::Type')->find($id) );
 
 }
 
 # Вывод формы для добавления нового рецепта
-sub add : Local {
+sub add :Local :Args(0){
     my ( $self, $c ) = @_;
     $c->stash();
 }
 
 # Добавление нового рецепта в базу
-sub insert : Local {
+sub insert :Local :Args(0) {
     my ( $self, $c ) = @_;
     my $param = $c->request->params;
     # Проверка подтверждения
@@ -84,18 +89,18 @@ sub insert : Local {
             $c->model('CookbookDB::Type')->create( { type_name => $param->{type_name}, } );
         }
     }
-    $c->response->redirect('/type');
+    $c->response->redirect('/type/list');
 
 }
 
-sub edit : Local {
+sub edit :Local :Args(1){
     my ( $self, $c, $id ) = @_;
     $c->stash( type => $c->model('CookbookDB::Type')->find($id), );
 }
 
 # Запись в базу измененного типа
-sub update : Local {
-    my ( $self, $c) = @_;
+sub update :Local :Args(0){
+    my ( $self, $c ) = @_;
     my $param = $c->request->params;
     # Проверка подтверждения
     if ( $param->{submit} eq 'Изменить' ) {
@@ -103,7 +108,7 @@ sub update : Local {
             type_name => $param->{name},
         });
     }
-    $c->response->redirect('/type');
+    $c->response->redirect('/type/list');
 }
 
 =head1 AUTHOR

@@ -1,9 +1,7 @@
 package Cookbook::Controller::Root;
 use Moose;
 use namespace::autoclean;
-use constant {
-    PAGE_ROWS  => 5
-};
+
 BEGIN { extends 'Catalyst::Controller' }
 
 #
@@ -28,47 +26,12 @@ The root page (/)
 
 =cut
 
-# Список всех записей
+
 sub index : Path : Args(0) {
     my ( $self, $c ) = @_;
-    my $rs = $c->model('CookbookDB::Dish')->search(
-        {},
-        {
-            columns  => [qw /dish_name dish_id/],
-            join     => 'type',
-            prefetch => 'type',
-            order_by => 'dish_name',
-            rows     => PAGE_ROWS,
-            page     => 1,
-        }
-    );
-    $c->stash(
-        dishs => $rs,
-        pages => [$rs->pager->first_page .. $rs->pager->last_page],
-    );
 }
 
-#Постраничный вывод
-sub page : Path : Args(1) {
-    my ( $self, $c, $page ) = @_;
-    $page //= 1;
-    my $rs = $c->model('CookbookDB::Dish')->search(
-        {},
-        {
-            columns  => [qw /dish_name dish_id/],
-            join     => 'type',
-            prefetch => 'type',
-            order_by => 'dish_name',
-            rows     => PAGE_ROWS,
-            page     => $page,
-        }
-    );
-    $c->stash(
-        dishs    => $rs,
-        pages    => [ $rs->pager->first_page .. $rs->pager->last_page ],
-        template => 'index.tt',
-    );
-}
+
 
 =head2 default
 
