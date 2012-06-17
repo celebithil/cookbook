@@ -60,9 +60,7 @@ sub view :Chained('base') :PathPart('view') :Args(1) {
 	    my ( $self,  $c ) = @_;	      
 }
 
-sub page :Chained('base') :PathPart('page') :Args(1) {
-	    my ( $self,  $c ) = @_;	      
-}
+
 
 
 
