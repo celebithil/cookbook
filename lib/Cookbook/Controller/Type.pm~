@@ -1,4 +1,4 @@
-package Cookbook::Controller::Typec;
+package Cookbook::Controller::Type;
 use Moose;
 use namespace::autoclean;
 
@@ -6,7 +6,7 @@ BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
 
-Cookbook::Controller::Typec - Catalyst Controller
+Cookbook::Controller::Type - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -21,7 +21,7 @@ Catalyst Controller.
 
 =cut
 
-sub base :Chained('/') :PathPart('typec') :CaptureArgs(0) {}
+sub base :Chained('/') :PathPart('type') :CaptureArgs(0) {}
 
 sub list :Chained('base') :PathPart('') :Args(0) {
     my ( $self,  $c ) = @_;
@@ -34,14 +34,13 @@ sub list :Chained('base') :PathPart('') :Args(0) {
     );
    $c->stash(
         types => $rs,
-        template => 'type/list.tt',
     );
 }
 
 
 sub add :Chained('base') :PathPart('add') :Args(0) {
 	    my ( $self,  $c ) = @_;
-	    $c->stash( template => 'type/add.tt',);
+	    $c->stash();
 	      
 }
 

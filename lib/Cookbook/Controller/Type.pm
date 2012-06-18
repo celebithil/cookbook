@@ -1,6 +1,7 @@
 package Cookbook::Controller::Type;
 use Moose;
 use namespace::autoclean;
+use Cookbook::Form::Type;
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -16,100 +17,64 @@ Catalyst Controller.
 
 =cut
 
+
 =head2 index
 
 =cut
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
-    $c->response->redirect( '/type/list' );
-}
+sub base :Chained('/') :PathPart('type') :CaptureArgs(0) {}
 
-# список типов блюд
-sub list :Path :Args(0) {
-    my ( $self, $c ) = @_;
-        my $rs = $c->model('CookbookDB::Type')->search(
+sub list :Chained('base') :PathPart('') :Args(0) {
+    my ( $self,  $c ) = @_;
+    my $rs = $c->model('CookbookDB::Type')->search(
             {},
             {
                 columns  => [qw /type_name type_id/],
                 order_by => 'type_name'
             }
-        );
-    $c->stash(
+    );
+   $c->stash(
         types => $rs,
     );
-
 }
 
-# запрос на удаление записи из базы
-sub delete_form :Path('delete') :Args(1) {
-    my ( $self, $c, $id ) = @_;
-    $c->stash(
-        template => 'type/delete.tt',
-        type => $c->model('CookbookDB::Type')->find($id));
+
+sub add :Chained('base') :PathPart('add') :Args(0) {
+	    my ( $self,  $c ) = @_;
+	    my $type = $c->model('CookbookDB::Type')->new_result({});
+        return $self->form($c, $type);
+	      
 }
 
-# удаление записи из базы
-sub delete :Local :Args(0) {
-    my ($self, $c) = @_;
-    my $param = $c->request->params;
-    if ($param->{submit} eq 'Да') {
-        $c->model('CookbookDB::Type')->find( $param->{id} )->delete;
+sub edit :Chained('base') :PathPart('edit') :Args(1) {
+	    my ( $self,  $c ) = @_;	      
+}
+
+sub delete :Chained('base') :PathPart('delete') :Args(1) {
+	    my ( $self,  $c ) = @_;	      
+}
+
+sub view :Chained('base') :PathPart('view') :Args(1) {
+	    my ( $self,  $c ) = @_;	      
+}
+
+
+sub form {
+        my ( $self, $c, $type ) = @_;
+
+        my $form = Cookbook::Form::Type->new;
+        # Set the template
+        $c->stash( template => 'type/form.tt', form => $form );
+        $form->process( item => $type, params => $c->req->params );
+        return unless $form->validated;
+        $c->flash( message => 'Type created' );
+        # Redirect the user back to the list page
+        $c->response->redirect($c->uri_for($self->action_for('list')));
     }
-    $c->response->redirect('/type/list');
-}
 
-# просмотр записи
-sub view :Local :Args(1) {
-    my ( $self, $c, $id ) = @_;
-    $c->stash( type => $c->model('CookbookDB::Type')->find($id) );
 
-}
 
-# Вывод формы для добавления нового рецепта
-sub add :Local :Args(0){
-    my ( $self, $c ) = @_;
-    $c->stash();
-}
 
-# Добавление нового рецепта в базу
-sub insert :Local :Args(0) {
-    my ( $self, $c ) = @_;
-    my $param = $c->request->params;
-    # Проверка подтверждения
-    if ( $param->{submit} eq 'Ввести' ) {
-        # Если имя типа не введено, то добавления не происходит
-        # форма добавление выводится заново
-        unless ($param->{type_name}) {
-            $c->response->redirect('/type/add');
-            return;
-        }
-        # Добавление нового типа в базу
-        else {
-            $c->model('CookbookDB::Type')->create( { type_name => $param->{type_name}, } );
-        }
-    }
-    $c->response->redirect('/type/list');
-
-}
-
-sub edit :Local :Args(1){
-    my ( $self, $c, $id ) = @_;
-    $c->stash( type => $c->model('CookbookDB::Type')->find($id), );
-}
-
-# Запись в базу измененного типа
-sub update :Local :Args(0){
-    my ( $self, $c ) = @_;
-    my $param = $c->request->params;
-    # Проверка подтверждения
-    if ( $param->{submit} eq 'Изменить' ) {
-        my $row = $c->model('CookbookDB::Type')->find( $param->{id} )->update({
-            type_name => $param->{name},
-        });
-    }
-    $c->response->redirect('/type/list');
-}
 
 =head1 AUTHOR
 
