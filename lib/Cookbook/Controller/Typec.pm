@@ -21,10 +21,7 @@ Catalyst Controller.
 
 =cut
 
-sub base :Chained('/') :PathPart('typec') :CaptureArgs(0) {
-    my ( $self,  $c ) = @_;  
-    
-}
+sub base :Chained('/') :PathPart('typec') :CaptureArgs(0) {}
 
 sub list :Chained('base') :PathPart('') :Args(0) {
     my ( $self,  $c ) = @_;
