@@ -60,17 +60,17 @@ sub view :Chained('base') :PathPart('view') :Args(1) {
 
 
 sub form {
-        my ( $self, $c, $type ) = @_;
+    my ( $self, $c, $type ) = @_;
 
-        my $form = Cookbook::Form::Type->new;
-        # Set the template
-        $c->stash( template => 'type/form.tt', form => $form );
-        $form->process( item => $type, params => $c->req->params );
-        return unless $form->validated;
-        $c->flash( message => 'Type created' );
-        # Redirect the user back to the list page
-        $c->response->redirect($c->uri_for($self->action_for('list')));
-    }
+    my $form = Cookbook::Form::Type->new;
+    # Set the template
+    $c->stash( template => 'type/form.tt', form => $form );
+    $form->process( item => $type, params => $c->req->params );
+    return unless $form->validated;
+    $c->flash( message => 'Type created' );
+    # Redirect the user back to the list page
+    $c->response->redirect($c->uri_for($self->action_for('list')));
+}
 
 
 
