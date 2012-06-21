@@ -1,5 +1,5 @@
 [% title = 'Удалить тип'  %]
-<form method="post" action="[% c.uri_for('delete') %]">
+<form method="post" action="[% c.uri_for('') %]">
 <input type="hidden" name="id" value="[% type.type_id %]" />
 
 Подтвердите удаление типа '[% type.type_name %]'.
