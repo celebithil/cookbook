@@ -39,34 +39,25 @@ sub list :Chained('base') :PathPart('') :Args(0) {
 }
 
 sub id :Chained('base') :PathPart('') :CaptureArgs(1){
-	my ( $self,  $c, $id) = @_;
-	#$c->stash( borrower => $c->model('DB::Borrower')->find($borrower_id) );
-	#type => $c->model('CookbookDB::Type')->find($id);
-	$c->stash(type => $c->model('CookbookDB::Type')->find($id));
+    my ( $self,  $c, $id) = @_;
+    $c->stash(type => $c->model('CookbookDB::Type')->find($id));
 }
 
 sub add :Chained('base') :PathPart('add') :Args(0) {
-	    my ( $self,  $c ) = @_;
-	    my $type = $c->model('CookbookDB::Type')->new_result({});
-        return $self->form($c, $type);
-	      
+    my ( $self,  $c ) = @_;
+    my $type = $c->model('CookbookDB::Type')->new_result({});
+    return $self->form($c, $type);
 }
 
 sub edit :Chained('base') :PathPart('edit') :Args(1) {
-	    my ( $self,  $c ) = @_;	      
+    my ( $self,  $c ) = @_;
 }
 
 sub delete :Chained('id') :PathPart('delete') :Args(0) {
-	    my ( $self,  $c ) = @_;
-	    $c->stash->{type}->delete;	      
+    my ( $self,  $c ) = @_;
+    $c->stash->{type}->delete;
+    $c->response->redirect($c->uri_for($self->action_for('list')));
 }
-
-#sub delete : Chained('item') PathPart('delete') Args(0) {
-#      my ( $self, $c ) = @_;
-
-#      $c->stash->{borrower}->delete;
-#      $c->res->redirect( $c->uri_for($c->action_for('list')) );
-#}
 
 
 sub view :Chained('base') :PathPart('view') :Args(1) {
