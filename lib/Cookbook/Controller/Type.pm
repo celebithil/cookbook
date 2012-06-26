@@ -3,6 +3,9 @@ use Moose;
 use namespace::autoclean;
 use Cookbook::Form::Type;
 
+has 'edit_form' => ( isa => 'Cookbook::Form::Type', is => 'rw',
+   lazy => 1, default => sub { Cookbook::Form::Type->new } );
+
 BEGIN { extends 'Catalyst::Controller'; }
 
 =head1 NAME
@@ -46,11 +49,12 @@ sub id :Chained('base') :PathPart('') :CaptureArgs(1){
 sub add :Chained('base') :PathPart('add') :Args(0) {
     my ( $self,  $c ) = @_;
     my $type = $c->model('CookbookDB::Type')->new_result({});
-    return $self->form($c, $type);
+    return $self->form($c);
 }
 
-sub edit :Chained('base') :PathPart('edit') :Args(1) {
+sub edit :Chained('id') :PathPart('edit') :Args(0) {
     my ( $self,  $c ) = @_;
+    return $self->form($c);
 }
 
 sub delete :Chained('id') :PathPart('delete') :Args(0) {
@@ -66,15 +70,14 @@ sub view :Chained('base') :PathPart('view') :Args(1) {
 
 
 sub form {
-    my ( $self, $c, $type ) = @_;
-
+    my ( $self, $c ) = @_;
     my $form = Cookbook::Form::Type->new;
-    # Set the template
-    $c->stash( template => 'type/form.tt', form => $form );
-    $form->process( item => $type, params => $c->req->params );
-    return unless ($form->validated);
-    # Redirect the user back to the list page
-    $c->response->redirect($c->uri_for($self->action_for('list')));
+    $c->stash( form => $form, template => 'type/form.tt' );
+    return unless $form->process(
+        item => $c->stash->{type},
+        params => $c->req->parameters
+    );
+    $c->res->redirect( $c->uri_for($self->action_for('list')) );
 }
 
 
