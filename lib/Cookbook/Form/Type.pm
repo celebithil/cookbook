@@ -9,7 +9,7 @@ has '+item_class' => (default =>'Type',);
 has_field 'type_name' => (
     type => 'Text',
     required => 1,
-    label => 'Type',
+    label => 'Тип блюда',
 );
 
 has_field 'submit' => (

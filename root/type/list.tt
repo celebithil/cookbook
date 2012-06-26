@@ -13,4 +13,4 @@
 </tr>
 </table>
 <hr>
-<a href = /type/add><img src="/static/images/new.gif">
+<a href = "[% c.uri_for(c.controller('Type').action_for('add')) %]"><img src="/static/images/new.gif">
