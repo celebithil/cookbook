@@ -2,7 +2,7 @@ package Cookbook::Form::Type;
 
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler::Model::DBIC';
-
+use namespace::autoclean;
 
 has '+item_class' => (default =>'Type',);
 
@@ -18,6 +18,4 @@ has_field 'submit' => (
 );
 
 __PACKAGE__->meta->make_immutable;
-no HTML::FormHandler::Moose;
 1;
-

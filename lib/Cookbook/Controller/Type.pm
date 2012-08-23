@@ -5,6 +5,8 @@ use Cookbook::Form::Type;
 
 has 'edit_form' => ( isa => 'Cookbook::Form::Type', is => 'rw',
    lazy => 1, default => sub { Cookbook::Form::Type->new } );
+has 'view_form' => ( isa => 'Cookbook::Form::TypeView', is => 'rw',
+   lazy => 1, default => sub { Cookbook::Form::TypeView->new } );
 
 BEGIN { extends 'Catalyst::Controller'; }
 
@@ -30,15 +32,16 @@ sub base :Chained('/') :PathPart('type') :CaptureArgs(0) {}
 sub list :Chained('base') :PathPart('') :Args(0) {
     my ( $self,  $c ) = @_;
     my $rs = $c->model('CookbookDB::Type')->search(
-            {},
+                {},
             {
                 columns  => [qw /type_name type_id/],
                 order_by => 'type_name'
             }
     );
+   
    $c->stash(
-        types => $rs,
-    );
+       types => $rs,
+   );
 }
 
 sub id :Chained('base') :PathPart('') :CaptureArgs(1){
@@ -48,7 +51,7 @@ sub id :Chained('base') :PathPart('') :CaptureArgs(1){
 
 sub add :Chained('base') :PathPart('add') :Args(0) {
     my ( $self,  $c ) = @_;
-    my $type = $c->model('CookbookDB::Type')->new_result({});
+    $c->stash( type => $c->model('CookbookDB::Type')->new_result({}) );
     return $self->form($c);
 }
 
