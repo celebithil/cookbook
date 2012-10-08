@@ -4,7 +4,7 @@
 <tr>
 <td> [% type.type_name -%] </td>
 <td>  <a href = "[% c.uri_for(c.controller('Type').action_for('edit'),[type.type_id]) %]">     <img src="/static/images/edit.gif"></a> </td>
-<td>  <a href = "[% c.uri_for(c.controller('Type').action_for('view'),[type.type_id]) %]">     <img src="/static/images/view.gif"></td>
+<td>  <a href = "[% c.uri_for(c.controller('Type').action_for('view'),[type.type_id])  %]">     <img src="/static/images/view.gif"></td>
 <td>  <a href = "[% c.uri_for(c.controller('Type').action_for('delete'),[type.type_id]) %]">  <img src="/static/images/delete.gif"></td>
 [% END %]
 </tr>

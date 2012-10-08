@@ -1,6 +1,0 @@
-[% title = 'Добавить тип' -%]
-<form method="post" action="[% c.uri_for('insert') %]">
-     <p>Тип блюда:<input type="text" name="type_name" value = [% type_name %]></p>
-     <input type="submit" name="submit" value="Ввести">
-     <input type="submit" name="cancel" value="Отменить">
-</form>

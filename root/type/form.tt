@@ -1,3 +1,4 @@
 [% title = 'Добавить тип' -%]
 [% form.render %]
+<hr>
 <a href = "[% c.uri_for(c.controller('Type').action_for('list')) %]"><img src="/static/images/ppage.gif">
