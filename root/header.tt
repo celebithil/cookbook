@@ -2,7 +2,7 @@
 <col align = "left">
 <col align = "right">
 <tr>
-<td> <a href="[% c.uri_for(c.controller('Recipe').action_for('index')) %]">Список блюд</a></td>
+<td> <a href="[% c.uri_for(c.controller('Recipe').action_for('list')) %]">Список блюд</a></td>
 <td> <a href="[% c.uri_for(c.controller('Type').action_for('list')) %]">Справочник типов</a></td>
 </tr>
 </table>

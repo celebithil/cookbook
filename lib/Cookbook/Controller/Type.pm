@@ -30,6 +30,7 @@ Catalyst Controller.
 
 sub base : Chained('/') : PathPart('type') : CaptureArgs(0) { }
 
+# Список всех записей
 sub list : Chained('base') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
     my $rs = $c->model('CookbookDB::Type')->search(
