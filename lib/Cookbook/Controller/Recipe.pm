@@ -54,108 +54,21 @@ sub list : Chained('base') : PathPart('') : Args(0) {
 # получение объекта по id
 sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
-    $c->stash( type => $c->model('CookbookDB::Dish')->find($id) );
+    $c->stash( recipe => $c->model('CookbookDB::Dish')->find($id) );
+}
+
+sub add : Chained('base') : PathPart('add') : Args(0) {
+    my ( $self, $c ) = @_;
+    $c->stash( recipe => $c->model('CookbookDB::Dish')->new_result( {} ) );
+    return $self->form($c);
 }
 
 # Просмотр рецепта
 sub view : Chained('id') : PathPart('view') : Args(0) {
-    my ( $self, $c, $id ) = @_;
-    $c->stash( dish => $c->model('CookbookDB::Dish')->find($id) );
+    my ( $self, $c ) = @_;
+    $c->stash(template => 'recipe/view.tt');
 }
 
-# Вывод формы для редактирования рецепта
-#sub edit : Chained('id') : PathPart('edit') : Args(0) {
-#    my ( $self, $c, $id ) = @_;
-#    my $dish   = $c->model('CookbookDB::Dish')->find($id);
-#    my $recipe = $dish->recipe;
-#    $recipe =~ s/<br>/\n/g;
-#    my $type =
-#      $c->model('CookbookDB::Type')->search( {}, { order_by => 'type_name' } );
-#
-#    $c->stash(
-#        dish         => $dish,
-#        types        => $type,
-#        current_type => $dish->type_id,
-#        recipe       => $recipe,
-#    );
-#
-#}
-
-# Запись в базу измененного рецепта
-#sub update : Local : Args(0) {
-#    my ( $self, $c ) = @_;
-#    my $param = $c->request->params;
-#
-# Проверка на подтверждение редактирования
-#    if ( $param->{submit} eq 'Изменить' ) {
-#        $param->{recipe} =~ s/\n/<br>/g;
-#        my $row =
-#          $c->model('CookbookDB::Dish')->find( $param->{dish_id} )->update(
-#            {
-#                dish_name => $param->{dish_name},
-#                type_id   => $param->{type_id},
-#                recipe    => $param->{recipe},
-#            }
-#          );
-#    }
-#    $c->response->redirect('/recipe/');
-#}
-
-# Вывод формы для добавления нового рецепта
-#sub add : Local : Args(0) {
-#    my ( $self, $c ) = @_;
-#    $c->stash( type => [ $c->model('CookbookDB::Type')->all ], );
-#}
-
-# Добавление нового рецепта в базу
-#sub insert : Local : Args(0) {
-#    my ( $self, $c ) = @_;
-#    my $param = $c->request->params;
-
-# если подтверджения нет, то выводится список рецептов
-#    if ( $param->{submit} eq 'Ввести' ) {
-
-# Если рецепт или его имя не введены, то добавления не происходит
-# форма добавление выводится заново
-#        unless ( $param->{dish_name} && $param->{recipe} ) {
-#            $c->response->redirect('/recipe/add');
-#            return;
-#        }
-
-        # Добавление нового рецепта в базу
-#        else {
-#            $param->{recipe} =~ s/\r\n/<br>/g;
-#            $c->model('CookbookDB::Dish')->create(
-#                {
-#                    dish_name => $param->{dish_name},
-#                    type_id   => $param->{type_id},
-#                    recipe    => $param->{recipe},
-#                }
-#            );
-#        }
-#    }
-#    $c->response->redirect('/recipe/');
-#}
-
-# запрос на удаление записи из базы
-#sub delete_form : Chained('id') : PathPart('delete') : Args(0) {
-#    my ( $self, $c, $id ) = @_;
-#    $c->stash(
-#        template => 'recipe/delete.tt',
-#        dish     => $c->model('CookbookDB::Dish')->find($id)
-#    );
-#}
-
-# удаление записи из базы
-#sub delete : Local : Args(0) {
-#    my ( $self, $c ) = @_;
-#    my $param = $c->request->params;
-#
-#    if ( $param->{submit} eq 'Да' ) {
-#        $c->model('CookbookDB::Dish')->find( $param->{id} )->delete;
-#    }
-#    $c->response->redirect('/recipe/');
-#}
 
 sub delete : Chained('id') : PathPart('delete') : Args(0) {
     my ( $self, $c ) = @_;
@@ -163,9 +76,10 @@ sub delete : Chained('id') : PathPart('delete') : Args(0) {
     $c->response->redirect( $c->uri_for( $self->action_for('list') ) );
 }
 
-
-
-
+sub edit : Chained('id') : PathPart('edit') : Args(0) {
+    my ( $self, $c ) = @_;
+    return $self->form($c);
+}
 
 
 # Постраничный вывод
@@ -193,10 +107,10 @@ sub page : Local : Args(1) {
 sub form {
     my ( $self, $c ) = @_;
     my $form = Cookbook::Form::Recipe->new;
-    $c->stash( form => $form, template => '/form.tt' );
+    $c->stash( form => $form, template => 'recipe/form.tt' );
     return
       unless $form->process(
-        item   => $c->stash->{type},
+        item   => $c->stash->{dish},
         params => $c->req->parameters
       );
     $c->res->redirect( $c->uri_for( $self->action_for('list') ) );
