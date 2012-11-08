@@ -1,0 +1,4 @@
+[% title = 'Добавить рецепт' -%]
+[% form.render %]
+<hr>
+<a href = "[% c.uri_for(c.controller('Recipe').action_for('list')) %]"><img src="/static/images/ppage.gif">
