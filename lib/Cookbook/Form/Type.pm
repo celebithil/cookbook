@@ -12,6 +12,7 @@ has_field 'type_name' => (
     label => 'Тип блюда',
 );
 
+
 has_field 'submit' => (
     type => 'Submit',
     value => 'Ввести',

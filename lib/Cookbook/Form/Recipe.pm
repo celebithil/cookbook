@@ -3,6 +3,7 @@ package Cookbook::Form::Recipe;
 use HTML::FormHandler::Moose;
 extends 'HTML::FormHandler::Model::DBIC';
 
+
 has '+item_class' => (default =>'Dish',);
 
 has_field 'dish_name' => (
@@ -12,10 +13,10 @@ has_field 'dish_name' => (
 );
 
 
-has_field 'type_name' => (
-    type  => 'Select',
-    label => 'Тип блюда',
-);
+#has_field 'type_id' => (
+#    type  => 'Select',
+#    label => 'Тип блюда',
+#);
 
 has_field 'recipe'  => (
     type => 'TextArea',
