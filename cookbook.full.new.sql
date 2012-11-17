@@ -107,7 +107,7 @@ CREATE TABLE `recipes` (
   UNIQUE KEY `dish_id` (`recipe_id`),
   UNIQUE KEY `recipe_id` (`recipe_id`),
   KEY `type_id` (`type_id`),
-  CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`type_id`)
+  CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `types` (`type_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -122,13 +122,13 @@ INSERT INTO `recipes` VALUES (1,'Суп',1,'варим суп	  	  '),(2,'Кот
 UNLOCK TABLES;
 
 --
--- Table structure for table `type`
+-- Table structure for table `types`
 --
 
-DROP TABLE IF EXISTS `type`;
+DROP TABLE IF EXISTS `types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `type` (
+CREATE TABLE `types` (
   `type_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `type_name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`type_id`),
@@ -137,13 +137,13 @@ CREATE TABLE `type` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `type`
+-- Dumping data for table `types`
 --
 
-LOCK TABLES `type` WRITE;
-/*!40000 ALTER TABLE `type` DISABLE KEYS */;
-INSERT INTO `type` VALUES (1,'первое'),(2,'второе'),(3,'десерт'),(4,'закуски');
-/*!40000 ALTER TABLE `type` ENABLE KEYS */;
+LOCK TABLES `types` WRITE;
+/*!40000 ALTER TABLE `types` DISABLE KEYS */;
+INSERT INTO `types` VALUES (1,'первое'),(2,'второе'),(3,'десерт'),(4,'закуски');
+/*!40000 ALTER TABLE `types` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -155,4 +155,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-11-18  3:40:08
+-- Dump completed on 2012-11-18  3:49:13
