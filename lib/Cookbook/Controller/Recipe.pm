@@ -57,25 +57,28 @@ sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     $c->stash( recipe => $c->model('CookbookDB::Recipe')->find($id) );
 }
 
+# добавление рецепта
 sub add : Chained('base') : PathPart('add') : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash( recipe => $c->model('CookbookDB::Recipe')->new_result( {} ) );
     return $self->form($c);
 }
 
-# Просмотр рецепта
+
+# просмотр рецепта
 sub view : Chained('id') : PathPart('view') : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash(template => 'recipe/view.tt');
 }
 
-
+# удаление рецепта
 sub delete : Chained('id') : PathPart('delete') : Args(0) {
     my ( $self, $c ) = @_;
     $c->stash->{recipe}->delete;
     $c->response->redirect( $c->uri_for( $self->action_for('list') ) );
 }
 
+# изменение рецепта
 sub edit : Chained('id') : PathPart('edit') : Args(0) {
     my ( $self, $c ) = @_;
     return $self->form($c);
@@ -110,7 +113,7 @@ sub form {
     $c->stash( form => $form, template => 'recipe/form.tt' );
     return
       unless $form->process(
-        item   => $c->stash->{dish},
+        item   => $c->stash->{recipe},
         params => $c->req->parameters
       );
     $c->res->redirect( $c->uri_for( $self->action_for('list') ) );
