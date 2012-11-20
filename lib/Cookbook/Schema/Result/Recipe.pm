@@ -1,36 +1,51 @@
-package Cookbook::Schema::Result::Dish;
+use utf8;
+package Cookbook::Schema::Result::Recipe;
 
 # Created by DBIx::Class::Schema::Loader
 # DO NOT MODIFY THE FIRST PART OF THIS FILE
+
+=head1 NAME
+
+Cookbook::Schema::Result::Recipe
+
+=cut
 
 use strict;
 use warnings;
 
 use Moose;
 use MooseX::NonMoose;
-use namespace::autoclean;
+use MooseX::MarkAsMethods autoclean => 1;
 extends 'DBIx::Class::Core';
 
-__PACKAGE__->load_components("InflateColumn::DateTime");
+=head1 COMPONENTS LOADED
 
-=head1 NAME
+=over 4
 
-Cookbook::Schema::Result::Dish
+=item * L<DBIx::Class::InflateColumn::DateTime>
+
+=back
 
 =cut
 
-__PACKAGE__->table("dish");
+__PACKAGE__->load_components("InflateColumn::DateTime");
+
+=head1 TABLE: C<recipes>
+
+=cut
+
+__PACKAGE__->table("recipes");
 
 =head1 ACCESSORS
 
-=head2 dish_id
+=head2 recipe_id
 
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 dish_name
+=head2 recipe_name
 
   data_type: 'varchar'
   is_nullable: 1
@@ -51,14 +66,14 @@ __PACKAGE__->table("dish");
 =cut
 
 __PACKAGE__->add_columns(
-  "dish_id",
+  "recipe_id",
   {
     data_type => "bigint",
     extra => { unsigned => 1 },
     is_auto_increment => 1,
     is_nullable => 0,
   },
-  "dish_name",
+  "recipe_name",
   { data_type => "varchar", is_nullable => 1, size => 100 },
   "type_id",
   {
@@ -70,7 +85,18 @@ __PACKAGE__->add_columns(
   "recipe",
   { data_type => "text", is_nullable => 1 },
 );
-__PACKAGE__->set_primary_key("dish_id");
+
+=head1 PRIMARY KEY
+
+=over 4
+
+=item * L</recipe_id>
+
+=back
+
+=cut
+
+__PACKAGE__->set_primary_key("recipe_id");
 
 =head1 RELATIONS
 
@@ -86,12 +112,12 @@ __PACKAGE__->belongs_to(
   "type",
   "Cookbook::Schema::Result::Type",
   { type_id => "type_id" },
-  { is_deferrable => 1, on_delete => "CASCADE", on_update => "CASCADE" },
+  { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07010 @ 2011-10-18 00:03:00
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:LlPrDrsUTJcCWzm+84KFLw
+# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-11-18 19:31:46
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wdRaBVdan0QUy3kzyQ9ECg
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

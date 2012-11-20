@@ -34,19 +34,19 @@ sub base : Chained('/') : PathPart('recipe') : CaptureArgs(0) { }
 # Список всех записей
 sub list : Chained('base') : PathPart('') : Args(0) {
     my ( $self, $c ) = @_;
-    my $rs = $c->model('CookbookDB::Dish')->search(
+    my $rs = $c->model('CookbookDB::Recipe')->search(
         {},
         {
-            columns  => [qw /dish_name dish_id/],
+            columns  => [qw /recipe_name recipe_id/],
             join     => 'type',
             prefetch => 'type',
-            order_by => 'dish_name',
+            order_by => 'recipe_name',
             rows     => PAGE_ROWS,
             page     => 1,
         }
     );
     $c->stash(
-        dishs => $rs,
+        recipes => $rs,
         pages => [ $rs->pager->first_page .. $rs->pager->last_page ],
     );
 }
@@ -54,12 +54,12 @@ sub list : Chained('base') : PathPart('') : Args(0) {
 # получение объекта по id
 sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
-    $c->stash( recipe => $c->model('CookbookDB::Dish')->find($id) );
+    $c->stash( recipe => $c->model('CookbookDB::Recipe')->find($id) );
 }
 
 sub add : Chained('base') : PathPart('add') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash( recipe => $c->model('CookbookDB::Dish')->new_result( {} ) );
+    $c->stash( recipe => $c->model('CookbookDB::Recipe')->new_result( {} ) );
     return $self->form($c);
 }
 
@@ -86,19 +86,19 @@ sub edit : Chained('id') : PathPart('edit') : Args(0) {
 sub page : Local : Args(1) {
     my ( $self, $c, $page ) = @_;
     $page //= 1;
-    my $rs = $c->model('CookbookDB::Dish')->search(
+    my $rs = $c->model('CookbookDB::Recipe')->search(
         {},
         {
-            columns  => [qw /dish_name dish_id/],
+            columns  => [qw /recipe_name recipe_id/],
             join     => 'type',
             prefetch => 'type',
-            order_by => 'dish_name',
+            order_by => 'recipe_name',
             rows     => PAGE_ROWS,
             page     => $page,
         }
     );
     $c->stash(
-        dishs    => $rs,
+        recipes    => $rs,
         pages    => [ $rs->pager->first_page .. $rs->pager->last_page ],
         template => 'recipe/list.tt',
     );

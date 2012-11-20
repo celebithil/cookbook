@@ -3,13 +3,13 @@
 <tr>
 <td><b>Название</b></td><td><b>Вид блюда</b></td>
 </tr>
-[% WHILE (dish = dishs.next)  %]
+[% WHILE (recipe = recipes.next)  %]
 <tr>
-<td>[% dish.dish_name -%]</td>
-<td>[% dish.type.type_name -%]</td>
-<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('edit'), [dish.dish_id]) %]"><img src="/static/images/edit.gif"></a></td>
-<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('view'),[dish.dish_id]) %]"><img src="/static/images/view.gif"></a></td>
-<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('delete'),[dish.dish_id]) %]"><img src="/static/images/delete.gif"></a></td>
+<td>[% recipe.recipe_name -%]</td>
+<td>[% recipe.type.type_name -%]</td>
+<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('edit'), [recipe.recipe_id]) %]"><img src="/static/images/edit.gif"></a></td>
+<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('view'),[recipe.recipe_id]) %]"><img src="/static/images/view.gif"></a></td>
+<td><a href = "[% c.uri_for(c.controller('Recipe').action_for('delete'),[recipe.recipe_id]) %]"><img src="/static/images/delete.gif"></a></td>
 [% END %]
 </tr>
 </table>
