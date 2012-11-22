@@ -4,7 +4,7 @@ use Test::More;
 
 
 use Catalyst::Test 'cookbook';
-use cookbook::Controller::recipe;
+use cookbook::Controller::Recipe;
 
 ok( request('/recipe')->is_success, 'Request should succeed' );
 ok( request('/recipe/view')->is_success, 'Request should succeed' );
