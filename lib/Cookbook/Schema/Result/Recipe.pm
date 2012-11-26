@@ -109,7 +109,7 @@ Related object: L<Cookbook::Schema::Result::Type>
 =cut
 
 __PACKAGE__->belongs_to(
-  "typess",
+  "type",
   "Cookbook::Schema::Result::Type",
   { type_id => "type_id" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },

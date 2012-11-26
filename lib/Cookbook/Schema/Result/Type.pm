@@ -88,7 +88,7 @@ Related object: L<Cookbook::Schema::Result::Recipe>
 =cut
 
 __PACKAGE__->has_many(
-  "recipess",
+  "recipe",
   "Cookbook::Schema::Result::Recipe",
   { type_id => "type_id" },
   { cascade_copy => 0, cascade_delete => 0 },

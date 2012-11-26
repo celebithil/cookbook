@@ -13,7 +13,7 @@ has_field 'recipe_name' => (
 );
 
 
-has_field 'typess' => (
+has_field 'type_id' => (
     type  => 'Select',
     label => 'Тип блюда',
 );
