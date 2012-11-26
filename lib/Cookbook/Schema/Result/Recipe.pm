@@ -109,15 +109,15 @@ Related object: L<Cookbook::Schema::Result::Type>
 =cut
 
 __PACKAGE__->belongs_to(
-  "type",
+  "typess",
   "Cookbook::Schema::Result::Type",
   { type_id => "type_id" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-11-18 19:31:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:wdRaBVdan0QUy3kzyQ9ECg
+# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-11-25 13:05:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:mh52kDa60fgTWFjtWZc0RA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

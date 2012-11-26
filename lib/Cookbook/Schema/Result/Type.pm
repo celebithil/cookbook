@@ -88,15 +88,15 @@ Related object: L<Cookbook::Schema::Result::Recipe>
 =cut
 
 __PACKAGE__->has_many(
-  "recipes",
+  "recipess",
   "Cookbook::Schema::Result::Recipe",
-  { "foreign.type_id" => "self.type_id" },
+  { type_id => "type_id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-11-18 19:31:46
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SGTawctVsGAWvdmMpKAfCg
+# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-11-25 13:05:57
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:pLdnAdJw7dL1+pa4C+1e1g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
