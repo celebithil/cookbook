@@ -64,7 +64,6 @@ sub add : Chained('base') : PathPart('add') : Args(0) {
     return $self->form($c);
 }
 
-
 # просмотр рецепта
 sub view : Chained('id') : PathPart('view') : Args(0) {
     my ( $self, $c ) = @_;
