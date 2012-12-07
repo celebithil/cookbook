@@ -1,8 +1,8 @@
--- MySQL dump 10.13  Distrib 5.5.20, for FreeBSD8.2 (i386)
+-- MySQL dump 10.13  Distrib 5.5.28, for Linux (x86_64)
 --
 -- Host: localhost    Database: cookbook
 -- ------------------------------------------------------
--- Server version	5.5.20-log
+-- Server version	5.5.28-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,55 +16,53 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `dish`
+-- Table structure for table `recipes`
 --
 
-DROP TABLE IF EXISTS `dish`;
+DROP TABLE IF EXISTS `recipes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `dish` (
-  `dish_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `dish_name` varchar(100) DEFAULT NULL,
+CREATE TABLE `recipes` (
+  `recipe_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `recipe_name` varchar(100) DEFAULT NULL,
   `type_id` bigint(20) unsigned NOT NULL,
   `recipe` text,
-  PRIMARY KEY (`dish_id`),
-  UNIQUE KEY `dish_id` (`dish_id`),
-  KEY `type_id` (`type_id`),
-  CONSTRAINT `dish_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `type` (`type_id`)
+  PRIMARY KEY (`recipe_id`),
+  KEY `fk_type_id` (`type_id`),
+  CONSTRAINT `recipes_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `types` (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `dish`
+-- Dumping data for table `recipes`
 --
 
-LOCK TABLES `dish` WRITE;
-/*!40000 ALTER TABLE `dish` DISABLE KEYS */;
-/*!40000 ALTER TABLE `dish` ENABLE KEYS */;
+LOCK TABLES `recipes` WRITE;
+/*!40000 ALTER TABLE `recipes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `recipes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `type`
+-- Table structure for table `types`
 --
 
-DROP TABLE IF EXISTS `type`;
+DROP TABLE IF EXISTS `types`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `type` (
+CREATE TABLE `types` (
   `type_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `type_name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`type_id`),
-  UNIQUE KEY `type_id` (`type_id`)
+  PRIMARY KEY (`type_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `type`
+-- Dumping data for table `types`
 --
 
-LOCK TABLES `type` WRITE;
-/*!40000 ALTER TABLE `type` DISABLE KEYS */;
-/*!40000 ALTER TABLE `type` ENABLE KEYS */;
+LOCK TABLES `types` WRITE;
+/*!40000 ALTER TABLE `types` DISABLE KEYS */;
+/*!40000 ALTER TABLE `types` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -76,4 +74,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2012-02-18 19:57:16
+-- Dump completed on 2012-12-07 14:29:10
