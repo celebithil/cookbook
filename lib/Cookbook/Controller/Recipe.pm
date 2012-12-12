@@ -47,7 +47,7 @@ sub list : Chained('base') : PathPart('') : Args(0) {
     );
     $c->stash(
         recipes => $rs,
-        pages => [ $rs->pager->first_page .. $rs->pager->last_page ],
+        pages   => [ $rs->pager->first_page .. $rs->pager->last_page ],
     );
 }
 
@@ -67,7 +67,7 @@ sub add : Chained('base') : PathPart('add') : Args(0) {
 # просмотр рецепта
 sub view : Chained('id') : PathPart('view') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash(template => 'recipe/view.tt');
+    $c->stash( template => 'recipe/view.tt' );
 }
 
 # удаление рецепта
@@ -82,7 +82,6 @@ sub edit : Chained('id') : PathPart('edit') : Args(0) {
     my ( $self, $c ) = @_;
     return $self->form($c);
 }
-
 
 # Постраничный вывод
 sub page : Local : Args(1) {
@@ -100,7 +99,7 @@ sub page : Local : Args(1) {
         }
     );
     $c->stash(
-        recipes    => $rs,
+        recipes  => $rs,
         pages    => [ $rs->pager->first_page .. $rs->pager->last_page ],
         template => 'recipe/list.tt',
     );

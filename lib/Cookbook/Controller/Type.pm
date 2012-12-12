@@ -68,7 +68,7 @@ sub delete : Chained('id') : PathPart('delete') : Args(0) {
 
 sub view : Chained('id') : PathPart('view') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash( template => 'type/view.tt');
+    $c->stash( template => 'type/view.tt' );
 
 }
 
