@@ -38,14 +38,14 @@ __PACKAGE__->table("types");
 
 =head1 ACCESSORS
 
-=head2 type_id
+=head2 id
 
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 type_name
+=head2 name
 
   data_type: 'varchar'
   is_nullable: 1
@@ -54,14 +54,14 @@ __PACKAGE__->table("types");
 =cut
 
 __PACKAGE__->add_columns(
-  "type_id",
+  "id",
   {
     data_type => "bigint",
     extra => { unsigned => 1 },
     is_auto_increment => 1,
     is_nullable => 0,
   },
-  "type_name",
+  "name",
   { data_type => "varchar", is_nullable => 1, size => 50 },
 );
 
@@ -69,13 +69,13 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</type_id>
+=item * L</id>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("type_id");
+__PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
@@ -90,13 +90,13 @@ Related object: L<Cookbook::Schema::Result::Recipe>
 __PACKAGE__->has_many(
   "recipes",
   "Cookbook::Schema::Result::Recipe",
-  { "foreign.type_id" => "self.type_id" },
+  { "foreign.type" => "self.id" },
   { cascade_copy => 0, cascade_delete => 0 },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-12-07 15:19:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:X4zr/VKaA2atuDT61Jl6TQ
+# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-12-19 16:54:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:ctn45QBdqxWI3Ih9W5ZY2g
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration

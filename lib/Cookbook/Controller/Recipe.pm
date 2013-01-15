@@ -37,10 +37,10 @@ sub list : Chained('base') : PathPart('') : Args(0) {
     my $rs = $c->model('CookbookDB::Recipe')->search(
         {},
         {
-            columns  => [qw /recipe_name recipe_id/],
+            columns  => [qw /name id/],
             join     => 'type',
-            prefetch => 'type',
-            order_by => 'recipe_name',
+            prefetch => 'types',
+            order_by => 'name',
             rows     => PAGE_ROWS,
             page     => 1,
         }
@@ -90,10 +90,10 @@ sub page : Local : Args(1) {
     my $rs = $c->model('CookbookDB::Recipe')->search(
         {},
         {
-            columns  => [qw /recipe_name recipe_id/],
+            columns  => [qw /name id/],
             join     => 'type',
             prefetch => 'type',
-            order_by => 'recipe_name',
+            order_by => 'name',
             rows     => PAGE_ROWS,
             page     => $page,
         }

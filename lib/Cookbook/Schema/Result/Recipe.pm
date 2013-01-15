@@ -38,20 +38,20 @@ __PACKAGE__->table("recipes");
 
 =head1 ACCESSORS
 
-=head2 recipe_id
+=head2 id
 
   data_type: 'bigint'
   extra: {unsigned => 1}
   is_auto_increment: 1
   is_nullable: 0
 
-=head2 recipe_name
+=head2 name
 
   data_type: 'varchar'
   is_nullable: 1
   size: 100
 
-=head2 type_id
+=head2 type
 
   data_type: 'bigint'
   extra: {unsigned => 1}
@@ -66,16 +66,16 @@ __PACKAGE__->table("recipes");
 =cut
 
 __PACKAGE__->add_columns(
-  "recipe_id",
+  "id",
   {
     data_type => "bigint",
     extra => { unsigned => 1 },
     is_auto_increment => 1,
     is_nullable => 0,
   },
-  "recipe_name",
+  "name",
   { data_type => "varchar", is_nullable => 1, size => 100 },
-  "type_id",
+  "type",
   {
     data_type => "bigint",
     extra => { unsigned => 1 },
@@ -90,13 +90,13 @@ __PACKAGE__->add_columns(
 
 =over 4
 
-=item * L</recipe_id>
+=item * L</id>
 
 =back
 
 =cut
 
-__PACKAGE__->set_primary_key("recipe_id");
+__PACKAGE__->set_primary_key("id");
 
 =head1 RELATIONS
 
@@ -111,13 +111,13 @@ Related object: L<Cookbook::Schema::Result::Type>
 __PACKAGE__->belongs_to(
   "type",
   "Cookbook::Schema::Result::Type",
-  { type_id => "type_id" },
+  { id => "type" },
   { is_deferrable => 1, on_delete => "RESTRICT", on_update => "RESTRICT" },
 );
 
 
-# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-12-07 15:19:17
-# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:p0vF18cAvB5foB0A6P1JDA
+# Created by DBIx::Class::Schema::Loader v0.07033 @ 2012-12-19 16:54:23
+# DO NOT MODIFY THIS OR ANYTHING ABOVE! md5sum:SFS2oyKGhr5lex8jyh9UxA
 
 
 # You can replace this text with custom code or comments, and it will be preserved on regeneration
