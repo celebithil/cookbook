@@ -36,8 +36,8 @@ sub list : Chained('base') : PathPart('') : Args(0) {
     my $rs = $c->model('CookbookDB::Type')->search(
         {},
         {
-            columns  => [qw /type_name type_id/],
-            order_by => 'type_name'
+            columns  => [qw /name id/],
+            order_by => 'name'
         }
     );
 
