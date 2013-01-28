@@ -38,8 +38,8 @@ sub list : Chained('base') : PathPart('') : Args(0) {
         {},
         {
             columns  => [qw /name id/],
-            join     => 'type',
-            prefetch => 'types',
+            join     => 'types',
+            prefetch => 'type',
             order_by => 'name',
             rows     => PAGE_ROWS,
             page     => 1,

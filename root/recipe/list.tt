@@ -3,7 +3,6 @@
 <tr>
 <td><b>Название</b></td><td><b>Вид блюда</b></td>
 </tr>
-recipes
 [% WHILE (recipe = recipes.next)  %]
 <tr>
 <td>[% recipe.name -%]</td>
