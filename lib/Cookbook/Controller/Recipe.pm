@@ -93,7 +93,7 @@ sub page : Local : Args(1) {
             columns  => [qw /name id/],
             join     => 'type',
             prefetch => 'type',
-            order_by => 'name',
+            order_by => 'me.name',
             rows     => PAGE_ROWS,
             page     => $page,
         }
