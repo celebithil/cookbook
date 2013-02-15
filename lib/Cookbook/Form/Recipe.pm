@@ -6,7 +6,7 @@ extends 'HTML::FormHandler::Model::DBIC';
 
 has '+item_class' => (default =>'Recipe',);
 
-has_field 'recipe_name' => (
+has_field 'name' => (
     type => 'Text',
     required => 1,
     label => 'Название блюда',
