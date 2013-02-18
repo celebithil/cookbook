@@ -1,5 +1,5 @@
 [% title = 'Рецепт' -%]
-<p><b>[% recipe.dish_name -%]</b></p>
+<p><b>[% recipe.name -%]</b></p>
 <hr>
 <p>[% recipe.recipe -%]</p>
 <hr>
