@@ -50,14 +50,15 @@ sub list : Chained('base') : PathPart('') : Args(0) {
         pages   => [ $rs->pager->first_page .. $rs->pager->last_page ],
     );
 }
-#замена символов и присваивание переменной
+
+
 # получение объекта по id
 sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
     
     $c->stash( recipe => $c->model('CookbookDB::Recipe')->find($id) );
-
-}
+    $c->detach('error_404') unless $c->stash->{recipe};
+    }
 
 # добавление рецепта
 sub add : Chained('base') : PathPart('add') : Args(0) {
