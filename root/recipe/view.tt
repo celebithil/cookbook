@@ -1,6 +1,6 @@
 [% title = 'Рецепт' -%]
 <p><b>[% recipe.name -%]</b></p>
 <hr>
-<p>[% recipe.recipe -%]</p>
+<p>[% html_recipe -%]</p>
 <hr>
 <a href = "[% c.uri_for(c.controller('Recipe').action_for('index')) %]" ><img src="/static/images/exit.gif"></a>

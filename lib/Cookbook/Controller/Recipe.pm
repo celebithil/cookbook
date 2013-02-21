@@ -67,8 +67,9 @@ sub add : Chained('base') : PathPart('add') : Args(0) {
 # просмотр рецепта
 sub view : Chained('id') : PathPart('view') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->{recipe} =~  s/\r?\n/<br>/g;
-    $c->stash( template => 'recipe/view.tt' );
+    my $html_recipe = $c->stash->{recipe}->recipe;
+    $html_recipe =~  s/\r?\n/<br>/g;
+    $c->stash( template => 'recipe/view.tt', html_recipe => $html_recipe );
 }
 
 # удаление рецепта
