@@ -50,7 +50,7 @@ sub list : Chained('base') : PathPart('') : Args(0) {
         pages   => [ $rs->pager->first_page .. $rs->pager->last_page ],
     );
 }
-
+замена символов и присваивание переменной
 # получение объекта по id
 sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
