@@ -1,6 +1,6 @@
 [% title = 'Тип блюда' -%]
-<p><b>[% type.type_name -%]</b></p>
+<p><b>[% type.name | html | html_line_break -%]</b></p>
 <hr>
-<p>[% type.type_id -%]</p>
+<p>[% type.id  -%]</p>
 <hr>
 <a href = "[% c.uri_for('/type') %]" ><img src="/static/images/exit.gif"></a>

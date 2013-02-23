@@ -54,22 +54,27 @@ sub list : Chained('base') : PathPart('') : Args(0) {
 # получение объекта по id
 sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
+    
     $c->stash( recipe => $c->model('CookbookDB::Recipe')->find($id) );
+
 }
 
 # добавление рецепта
 sub add : Chained('base') : PathPart('add') : Args(0) {
     my ( $self, $c ) = @_;
-    $c->stash( recipe => $c->model('CookbookDB::Recipe')->new_result( {} ) );
+    $c->stash(
+        recipe => $c->model('CookbookDB::Recipe')->new_result( {} ) 
+    );
     return $self->form($c);
 }
 
 # просмотр рецепта
 sub view : Chained('id') : PathPart('view') : Args(0) {
     my ( $self, $c ) = @_;
-    my $html_recipe = $c->stash->{recipe}->recipe;
-    $html_recipe =~  s/\r?\n/<br>/g;
-    $c->stash( template => 'recipe/view.tt', html_recipe => $html_recipe );
+    
+    $c->stash( 
+		template    => 'recipe/view.tt'
+	);
 }
 
 # удаление рецепта
