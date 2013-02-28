@@ -57,7 +57,7 @@ sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
     
     $c->stash( recipe => $c->model('CookbookDB::Recipe')->find($id) );
-    $c->detach('error_404') unless $c->stash->{recipe};
+    $c->res->status(404) unless $c->stash->{recipe};
     }
 
 # добавление рецепта
