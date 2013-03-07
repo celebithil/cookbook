@@ -57,7 +57,10 @@ sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
     
     $c->stash( recipe => $c->model('CookbookDB::Recipe')->find($id) );
-    $c->res->status(404) unless $c->stash->{recipe};
+        unless ($c->stash->{recipe}) {
+		     $c->response->body('record not found');
+		     $c->response->status(404);
+	    }
     }
 
 # добавление рецепта

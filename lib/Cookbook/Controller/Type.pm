@@ -49,6 +49,10 @@ sub id : Chained('base') : PathPart('') : CaptureArgs(1) {
     my ( $self, $c, $id ) = @_;
     
     $c->stash( type => $c->model('CookbookDB::Type')->find($id) );
+        unless ($c->stash->{type}) {
+		     $c->response->body('record not found');
+		     $c->response->status(404);
+	    }
 }
 
 sub add : Chained('base') : PathPart('add') : Args(0) {
